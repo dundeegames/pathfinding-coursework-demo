@@ -16,6 +16,15 @@
     <Filter Include="ui">
       <UniqueIdentifier>{00304db4-035e-4fd7-bcbe-4177cbd9c08b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="astar">
+      <UniqueIdentifier>{530d7e99-0eb3-4d7e-a319-6f1f225960e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lee">
+      <UniqueIdentifier>{329634d3-a5cc-4c8c-bcc7-d9808c287967}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="hashing">
+      <UniqueIdentifier>{bfd48af4-512f-4d58-97f6-f6d1ea81efd5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -27,6 +36,18 @@
     <ClCompile Include="gpsa_application.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="board.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="node.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="astar\astar.cpp">
+      <Filter>astar</Filter>
+    </ClCompile>
+    <ClCompile Include="lee\lee.cpp">
+      <Filter>lee</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ui\gui.h">
@@ -34,6 +55,18 @@
     </ClInclude>
     <ClInclude Include="gpsa_application.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="board.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="node.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="astar\astar.h">
+      <Filter>astar</Filter>
+    </ClInclude>
+    <ClInclude Include="lee\lee.h">
+      <Filter>lee</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

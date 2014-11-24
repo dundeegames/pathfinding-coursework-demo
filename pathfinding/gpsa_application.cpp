@@ -44,6 +44,24 @@ void GPSAapplication::run()
 			state = MAIN_MENU;
 			break;
 
+		case LEE:
+			/*
+			pathing.generatePath(point(2, 5, B_START), point(15, 17, B_END));
+
+			Sleep(1000);
+			board.clearPathing();
+
+			//-------------------
+			board.draw();
+
+			pathing.drawPath();
+			*/
+			break;
+
+		case ASTAR:
+			//astar.generatePath(Vector(2, 16), Vector(15, 10));
+			break;
+
 		case END:
 			gui.GoodBye_Screen();
 			appRunning = false;

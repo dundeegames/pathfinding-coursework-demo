@@ -1,8 +1,14 @@
 #ifndef GPSA_APPLICATION_H
 #define GPSA_APPLICATION_H
 
-#include"ui/gui.h"
+#include <iostream>
+#include <windows.h>
 #include <time.h>
+
+#include "ui/gui.h"
+//#include "board.h"
+//#include "astar/astar.h"
+//#include "lee/lee.h"
 
 
 enum State {MAIN_MENU, INSTRUCTIONS_MENU, ABOUT_MENU, HASHING, LEE, ASTAR, END};
@@ -20,9 +26,13 @@ public:
 private:
 
 	Gui gui;
-	State state;	// State enum is part of gui.h
+	//Board board;
 
 	bool appRunning;
+	State state;	// State enum is part of gui.h
+
+	//Astar astar;
+	//Lee lee;
 
 	void Manage_Input();
 
