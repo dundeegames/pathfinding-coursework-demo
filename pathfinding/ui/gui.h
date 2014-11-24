@@ -29,6 +29,10 @@
 using std::setw;
 using std::cout;
 
+
+enum Banner {PATHFINDING, INSTRUCTIONS, RULES, ABOUT, GOOD_BYE, GAME_OVER};
+
+
 class Gui
 {
 
@@ -42,11 +46,12 @@ public:
 	bool loadMap(char* name);
 
 	void Main_Menu();						// shows the MAIN MENU
+	void Instructions_Sreen();
+	void About_Screen();
+	void GameOver_Screen();
+	void GoodBye_Screen();
 
-
-
-
-
+	
 private:
 
 	CONSOLE_SCREEN_BUFFER_INFO con_info;	// holds screen info
@@ -61,10 +66,12 @@ private:
 	void Draw_Lines(int x, int y_1, int y_2, int limit);
 	void Draw_Button(int x,int y, int colour, char *string);	// colour 0-15
 
-	// min width = 17, min height = 5 
-	void Draw_Banner(int x, int y, int colour, int width, int height);
 
-	void Draw_Logo(int x, int y, int colour);					// "Pathfinding"
+	// min width = 17, min height = 5 
+	void Draw_Frame(int x, int y, int colour, int width, int height);
+
+	void Draw_Banner(int x, int y, int colour, Banner ban_);	// Draws the ASCII art text
+
 	void Draw_VertLine(int x, int y, int height);				// min height = 2
 
 	// this function sets the color of the console output

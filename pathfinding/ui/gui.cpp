@@ -26,7 +26,7 @@ void Gui::init()
 {
 	COORD console_size = {WINDOW_WIDTH,WINDOW_HEIGHT}; // size of console
 	SMALL_RECT windowSize = {0, 0, console_size.X-1, console_size.Y-1};
-    bool Absolute;
+    BOOL Absolute;
 
     //hconsole = GetStdHandle(STD_OUTPUT_HANDLE);
 
@@ -219,15 +219,14 @@ void Gui::Clear_Screen()
 // ------------------------------------------------------------------------------
 
 
-void Gui::Main_Menu()
+void Gui::Main_Menu()							// shows the MAIN MENU screen
 {
-	// this function shows the MAIN MENU
+	Clear_Screen();
 
-	Clear_Screen();			// clear the screen
+	Draw_Frame(9, 1, 10, 60, 12);
 
-	Draw_Banner(9, 1, 10, 60, 12);
+	Draw_Banner(13, 4, 15, PATHFINDING);
 
-	Draw_Logo(13, 4, 15);
 	Draw_String(21,11,"Jiri Klic - Coursework, November 2014");
 
 
@@ -251,7 +250,7 @@ void Gui::Main_Menu()
 
 // ------------------------------------------------------------------------------
 
-void Gui::Draw_Banner(int x, int y, int colour, int width, int height)
+void Gui::Draw_Frame(int x, int y, int colour, int width, int height)
 {
 	Set_Color(colour,0);
 
@@ -320,283 +319,202 @@ void Gui::Draw_VertLine(int x, int y, int height)
 
 }
 
+// ------------------------------------------------------------------------------
 
-void Gui::Draw_Logo(int x, int y, int colour)
+
+void Gui::Instructions_Sreen()			// shows the INSTRUCTIONS screen
+{
+	Clear_Screen();
+
+	Draw_Frame(9, 1, 10, 60, 12);
+	Draw_Banner(11, 6, 12, INSTRUCTIONS);
+
+	Set_Color(12,0);					// set colour to red
+
+	Draw_String(2,20,
+		"Joe and Sid have devised a new game.\n\
+  They each start with a score of 301 and aim to reduce this to zero as quickly\n\
+  as possible by each throwing one dart per turn. The dart board has a bull\n\
+  and twenty segments around the bull only. There are no trebles, doubles or\n\
+  outer that would take the total below fifty is ignored.");
+
+
+	Press_Key(22,45,"press key to return to main menu...");
+
+}
+
+// ------------------------------------------------------------------------------
+
+
+void Gui::About_Screen()				// shows the ABOUT screen
+{
+	Clear_Screen();
+
+	Draw_Frame(9, 1, 10, 60, 12);
+	Draw_Banner(17, 6, 9, ABOUT);
+
+	Set_Color(9,0);						// set colour to blue
+
+	Draw_String(2,20,
+		"Joe and Sid have devised a new game.\n\
+  They each start with a score of 301 and aim to reduce this to zero as quickly\n\
+  as possible by each throwing one dart per turn. The dart board has a bull\n\
+  and twenty segments around the bull only. There are no trebles, doubles or\n\
+  outer that would take the total below fifty is ignored.");
+
+
+	Press_Key(22,45,"press key to return to main menu...");
+
+}
+
+// ------------------------------------------------------------------------------
+
+
+void Gui::GoodBye_Screen()				// shows the GOOD BYE screen
+{
+	Clear_Screen();			// clear the screen
+
+	Draw_Lines(15,17,24,53);	// draws a 2 lines Starting at 15, at height 7 and 14, of length = 53
+	Draw_Banner(19, 18, 15, GOOD_BYE);
+
+	Press_Key(24,29,"press key to end the application ..");
+
+	Draw_String(0,(WINDOW_HEIGHT-1),"");		// return cursor to bottom right
+
+}
+
+// ------------------------------------------------------------------------------
+
+
+void Gui::GameOver_Screen()				// shows the GAME OVER screen
+{
+	Clear_Screen();			// clear the screen
+
+	Draw_Lines(15,17,24,53);	// draws a 2 lines Starting at 15, at height 7 and 14, of length = 53
+	Draw_Banner(16, 18, 15, GAME_OVER);
+
+	Press_Key(27,29,"press key to end the game ...");
+
+	Draw_String(0,(WINDOW_HEIGHT-1),"");		// return cursor to bottom right
+
+}
+
+// ------------------------------------------------------------------------------
+
+
+void Gui::Draw_Banner(int x, int y, int colour, Banner ban_)
 {
 	Set_Color(colour,0);
 
-	Draw_String(x, y," ____       _   _      __ _           _ _             ");
-	Draw_String(x, (y+1),"|  _ \\ __ _| |_| |__  / _(_)_ __   __| (_)_ __   __ _ ");
-	Draw_String(x, (y+2),"| |_) / _` | __| '_ \\| |_| | '_ \\ / _` | | '_ \\ / _` |");
-	Draw_String(x, (y+3),"|  __/ (_| | |_| | | |  _| | | | | (_| | | | | | (_| |");
-	Draw_String(x, (y+4),"|_|   \\__,_|\\__|_| |_|_| |_|_| |_|\\__,_|_|_| |_|\\__, |");
-	Draw_String(x, (y+5),"                                                |___/ ");
+	switch(ban_)
+	{
+
+	case PATHFINDING:
+
+		Draw_String(x, y," ____       _   _      __ _           _ _             ");
+		Draw_String(x, (y+1),"|  _ \\ __ _| |_| |__  / _(_)_ __   __| (_)_ __   __ _ ");
+		Draw_String(x, (y+2),"| |_) / _` | __| '_ \\| |_| | '_ \\ / _` | | '_ \\ / _` |");
+		Draw_String(x, (y+3),"|  __/ (_| | |_| | | |  _| | | | | (_| | | | | | (_| |");
+		Draw_String(x, (y+4),"|_|   \\__,_|\\__|_| |_|_| |_|_| |_|\\__,_|_|_| |_|\\__, |");
+		Draw_String(x, (y+5),"                                                |___/ ");
+		break;
+
+	case INSTRUCTIONS:
+
+		Draw_String(x, y," ___           _                   _   _                 ");
+		Draw_String(x, (y+1),"|_ _|_ __  ___| |_ _ __ _   _  ___| |_(_) ___  _ __  ___ ");
+		Draw_String(x, (y+2)," | || '_ \\/ __| __| '__| | | |/ __| __| |/ _ \\| '_ \\/ __|");
+		Draw_String(x, (y+3)," | || | | \\__ \\ |_| |  | |_| | (__| |_| | (_) | | | \\__ \\");
+		Draw_String(x, (y+4),"|___|_| |_|___/\\__|_|   \\__,_|\\___|\\__|_|\\___/|_| |_|___/");
+		break;
+
+	case ABOUT:
+
+		Draw_String(x, y,"    _      ____     ___    _   _   _____ ");
+		Draw_String(x, (y+1),"   / \\    | __ )   / _ \\  | | | | |_   _|");
+		Draw_String(x, (y+2),"  / _ \\   |  _ \\  | | | | | | | |   | |  ");
+		Draw_String(x, (y+3)," / ___ \\  | |_) | | |_| | | |_| |   | |  ");
+		Draw_String(x, (y+4),"/_/   \\_\\ |____/   \\___/   \\___/    |_|  ");
+		break;
+
+	case GOOD_BYE:
+
+		Draw_String(x, y,"  ____                 _   ____             ");
+		Draw_String(x, (y+1)," / ___| ___   ___   __| | | __ ) _   _  ___ ");
+		Draw_String(x, (y+2),"| |  _ / _ \\ / _ \\ / _` | |  _ \\| | | |/ _ \\");
+		Draw_String(x, (y+3),"| |_| | (_) | (_) | (_| | | |_) | |_| |  __/");
+		Draw_String(x, (y+4)," \\____|\\___/ \\___/ \\__,_| |____/ \\__, |\\___|");
+		Draw_String(x, (y+5),"                                 |___/      ");
+		break;
+
+	case GAME_OVER:
+
+		Draw_String(x, y,"  ____                         ___                 ");
+		Draw_String(x, (y+1)," / ___| __ _ _ __ ___   ___   / _ \\__   _____ _ __ ");
+		Draw_String(x, (y+2),"| |  _ / _` | '_ ` _ \\ / _ \\ | | | \\ \\ / / _ \\ '__|");
+		Draw_String(x, (y+3),"| |_| | (_| | | | | | |  __/ | |_| |\\ V /  __/ |");
+		Draw_String(x, (y+4)," \\____|\\__,_|_| |_| |_|\\___|  \\___/  \\_/ \\___|_|");
+		break;
+
+	default:
+		break;
+	}
 
 	Set_Color(15,0);		// reset color to white on black
+
 }
-
-
 
 
 /*
 
-void Rules_Screen() {		// this function shows the RULES SCREEN
+// ToDo: Figure out procedural tables
+
+
+void Table1(int x, int y){
+
+	Draw_String(x,y," _______________________________________________________________");
+	Draw_String(x,y+1,"|                                                               |");
+	Draw_String(x,y+2,"|                  Joe's Game Length Frequencies                |");
+	Draw_String(x,y+3,"| ______________________________________________________________|");
+	Draw_String(x,y+4,"|   |         |         |         |         |         |         |");
+	Draw_String(x,y+5,"|   |    7    |    8    |    9    |    10   |    11   |   >11   |");
+	Draw_String(x,y+6,"| __|_________|_________|_________|_________|_________|_________|");
+	Draw_String(x,y+7,"|   |         |         |         |         |         |         |");
+	Draw_String(x,y+8,"| # |         |         |         |         |         |         |");
+	Draw_String(x,y+9,"| __|_________|_________|_________|_________|_________|_________|");
+	Draw_String(x,y+10,"|   |         |         |         |         |         |         |");
+	Draw_String(x,y+11,"| % |         |         |         |         |         |         |");
+	Draw_String(x,y+12,"| __|_________|_________|_________|_________|_________|_________|");
+	Draw_String(x,y+13,"|                                 |                             |");
+	Draw_String(x,y+14,"| Number of Games:                | Average Length:             |");
+	Draw_String(x,y+15,"| ________________________________|_____________________________|");
 
-	Clear_Screen();						// clear the screen
-
-	Set_Color(12,0);					// set colour to red
-
-	Draw_Lines(0,2,9,80);				// draws a 2 lines Starting at 0, at height 1 and 8, of length = 80
-
-	Draw_String(20,3," ____    _   _   _       _____   ____  ");
-	Draw_String(20,4,"|  _ \\  | | | | | |     | ____| / ___| ");
-	Draw_String(20,5,"| |_) | | | | | | |     |  _|   \\___ \\ ");
-	Draw_String(20,6,"|  _ <  | |_| | | |___  | |___   ___) |");
-	Draw_String(20,7,"|_| \\_\\  \\___/  |_____| |_____| |____/ ");
-
-
-	Draw_String(0,15,"Joe and Sid have devised a new game.");
-	Draw_String(0,17,"They each start with a score of 301 and aim to reduce this to zero as quickly");
-	Draw_String(0,18,"as possible by each throwing one dart per turn. The dart board has a bull");
-	Draw_String(0,19,"and twenty segments around the bull only. There are no trebles, doubles or outer");
-	Draw_String(0,20,"Games must end from a score of fifty by hitting the bull. Any other score");
-	Draw_String(0,21,"that would take the total below fifty is ignored.");
-	Draw_String(0,23,"To home in on a final score of fifty you need to be able to throw at any given");
-	Draw_String(0,24,"single number in the range one to twenty e.g. from sixty seven you would aim");
-	Draw_String(0,25,"for seventeen.");
-	Draw_String(0,30,"                Have fun! :-)");
-
-	Press_Key(22,35,"press key to return to main menu...");
-
-
-
-} // end Rules_Screen
-
-//---------------------------------------------------------------------------------------------
-
-
-
-void About_Screen() {		// this function shows the ABOUT SCREEN
-
-	Clear_Screen();						// clear the screen
-
-	Set_Color(9,0);						// set colour to blue
-
-	Draw_Lines(0,2,9,80);				// draws a 2 lines Starting at 0, at height 1 and 8, of length = 80
-
-	Draw_String(20,3,"    _      ____     ___    _   _   _____ ");
-	Draw_String(20,4,"   / \\    | __ )   / _ \\  | | | | |_   _|");
-	Draw_String(20,5,"  / _ \\   |  _ \\  | | | | | | | |   | |  ");
-	Draw_String(20,6," / ___ \\  | |_) | | |_| | | |_| |   | |  ");
-	Draw_String(20,7,"/_/   \\_\\ |____/   \\___/   \\___/    |_|  ");
-
-
-	Draw_String(0,15,"A game fragment adapted from Andre La Mothe's book");
-	Draw_String(0,16,"The Black Art of 3D Games Programming");
-
-	Draw_String(0,18,"I have rewritten \"DARTS\" from scratch. However, I am still using as template");
-	Draw_String(0,19,"the coordinate system and some functions. Therefore even when I do not call");
-	Draw_String(0,20,"the game \"Based on book - The Black Art of 3D Games Programming\" any more,");
-	Draw_String(0,21,"I still do keep the references to it.");
-
-	Draw_String(0,23,"LaMothe, Andre [1995] - Black Art of 3D Game Programming:");
-	Draw_String(0,24,"Writing Your Own High-Speed 3D Polygon Video Games in C, Waite Group Press");
-
-
-	Press_Key(22,35,"press key to return to main menu...");
-
-
-
-} // end About_Screen
-
-
-//--------------------------------------------------------------------------------------------
-
-bool Play_Again() {				// this function asks if you want to play again
-
-	bool x = 0;					//play again? 1=yes, 0=no
-
-	Draw_String(23,14,"DO YOU WANT TO PLAY AGAIN?   es /  o");
-
-	Set_Color(10,0);			// set colour to green
-	Draw_String(51,14,"Y");
-
-	Set_Color(12,0);			// set colour to red
-	Draw_String(57,14,"N");
-
-
-	while(true){
-
-		if (_kbhit()) {						// get keyboard data, and filter it
-		
-		   key = toupper(_getch());
-		
-			// YES
-			if (key=='Y' || key==89) {
-				x = !x;
-				break;
-			}
-		
-			// NO
-			if (key=='N' || key==78) {
-				break;
-				
-			}
-
-				 
-	 	}	
-
-		
-	}
-
-return x;
-
-}	// end Play_Again
-
-//--------------------------------------------------------------------------------------------
-
-void GameOver_Screen() {		// this function shows the GAME OVER SCREEN
-
-	Clear_Screen();			// clear the screen
-
-	Set_Color(15,0);		// set colour to white
-
-	Draw_Lines(15,17,24,53);	// draws a 2 lines Starting at 15, at height 7 and 14, of length = 53
-
-	Draw_String(10,18,"        ____                         ___                 ");
-	Draw_String(10,19,"       / ___| __ _ _ __ ___   ___   / _ \\__   _____ _ __ ");
-	Draw_String(10,20,"      | |  _ / _` | '_ ` _ \\ / _ \\ | | | \\ \\ / / _ \\ '__|");
-	Draw_String(10,21,"      | |_| | (_| | | | | | |  __/ | |_| |\\ V /  __/ |");
-	Draw_String(10,22,"       \\____|\\__,_|_| |_| |_|\\___|  \\___/  \\_/ \\___|_|");
-
-
-	Press_Key(27,29,"press key to end the game ...");
-
-
-} // end GameOver_Screen
-
-//--------------------------------------------------------------------------------------------
-
-void Main_Menu() {		
-// this function shows the MAIN MENU
-
-	Clear_Screen();			// clear the screen
-
-	Set_Color(15,0);		// set colour to white
-
-	Draw_Lines(0,0,11,80);	// draws a 2 lines Starting at 0, at height 0 and 11, of length = 80
-
-	Draw_String(5,1," _____               _____    _______    _____ ");
-	Draw_String(5,2,"|  __ \\      /\\     |  __ \\  |__   __|  / ____|    Jiri Klic, March 2014");
-	Draw_String(5,3,"| |  | |    /  \\    | |__) |    | |    | (___  ");
-	Draw_String(5,4,"| |  | |   / /\\ \\   |  _  /     | |     \\___ \\        C++ Coursework");
-	Draw_String(5,5,"| |__| |  / ____ \\  | | \\ \\     | |     ____) |");
-	Draw_String(5,6,"|_____/  /_/    \\_\\ |_|  \\_\\    |_|    |_____/      ____   ");
-	Draw_String(5,7,"                            _____...........__     /    '. ");
-	Draw_String(5,8,"                     ---===<_____||| || :::|__||>=<=------)");
-	Draw_String(5,9,"                                 '''''''''''       \\____.' ");
-	//Draw_String(25,10,"by Jiri KLic, C++ Lab - Week 05");
-	
-
-	Draw_String(0,15,"CHOOSE FROM THE FOLLOWING OPTIONS: ");
-
-	Draw_Button(32,19, 14, " 1 - JOE PRACTISE   ");
-
-	Draw_Button(32,22, 14, " 2 - JOE GOES FIRST ");
-
-	Draw_Button(32,25, 10, " 3 - SID GOES FIRST ");
-
-	Draw_Button(32,28, 11, " 4 - JOE VS SID     ");
-
-	Draw_Button(32,31, 12, " 5 - RULES          ");
-
-	Draw_Button(32,34, 9, " 6 - ABOUT          ");
-
-	Draw_Button(32,37, 8, " Q - QUIT GAME      ");
-
-	Draw_String(0,0,"");						// reset position of cursor
-
-
-} // end Main_Menu
-
-//--------------------------------------------------------------------------------------------
-
-void Menu_Options() {
-
-	// SECTION: get player input
-	while (true) {
-
-		if (_kbhit()) {					// detect keyboard hit
-
-			key = toupper(_getch());
-
-				// QUIT
-				if (key=='Q' || key==27) {
-					game_running = false;
-					game_start = false;
-					break;
-				}
-	
-				// START - Joe Practise
-				else if (key=='1' || key==49) {
-					option = 1;
-					break;
-				}
-
-				// START - Joe goes first
-				else if (key=='2' || key==50) {
-					option = 2;
-					break;
-				}
-
-				// START - Sid goes first
-				else if (key=='3' || key==51) {
-					option = 3;
-					break;
-				}
-
-				// START - Joe vs Sid
-				else if (key=='4' || key==52) {
-					option = 4;
-					break;
-				}
-
-		
-				// RULES
-				else if (key=='5' || key==53) {
-					Rules_Screen();			// shows the RULES SCREEN
-					Main_Menu();			// shows the MAIN MENU
-					continue;
-				}
-
-				// ABOUT
-				else if (key=='6' || key==54) {
-					About_Screen();			// shows the ABOUT SCREEN
-					Main_Menu();			// shows the MAIN MENU
-					continue;
-				}
-
-		}
-	}
 }
-//--------------------------------------------------------------------------------------------
-
-
-void Draw_Score (int player1, int player2) {					// this function draws the Score
-
-	Set_Color(15,0);						// set colour to white
-
-	//Draw_String(20,0,"Score:             :");
-	 
-	Set_Color(14,0);							// set colour to blue and print player's Score
-	Draw_String(5,3,"JOE: ");			
-	Draw_Integer(11,3,3, player1 );	
-	 
-	Set_Color(10,0);						// set colour to red and print computer's Score
-	Draw_String(66,3,"SID: ");		
-	Draw_Integer(72,3,3, player2 );
-
-} // end Draw_Score
 
 //--------------------------------------------------------------------------------------------
+
+void Table2(int x, int y){
+
+	Draw_String(x,y," __________________________________________________________________");
+	Draw_String(x,y+1,"|                                                                  |");
+	Draw_String(x,y+2,"|                       Joe's Percentage Success                   |");
+	Draw_String(x,y+3,"| _________________________________________________________________|");
+	Draw_String(x,y+4,"|      |         |         |         |         |         |         |");
+	Draw_String(x,y+5,"| Rule |  Run 1  |  Run 2  |  Run 3  |  Run 4  |  Run 5  |  Mean   |");
+	Draw_String(x,y+6,"| _____|_________|_________|_________|_________|_________|_________|");
+	Draw_String(x,y+7,"|      |         |         |         |         |         |         |");
+	Draw_String(x,y+8,"|   1  |         |         |         |         |         |         |");
+	Draw_String(x,y+9,"| _____|_________|_________|_________|_________|_________|_________|");
+	Draw_String(x,y+10,"|      |         |         |         |         |         |         |");
+	Draw_String(x,y+11,"|   2  |         |         |         |         |         |         |");
+	Draw_String(x,y+12,"| _____|_________|_________|_________|_________|_________|_________|");
+	Draw_String(x,y+13,"|      |         |         |         |         |         |         |");
+	Draw_String(x,y+14,"|   3  |         |         |         |         |         |         |");
+	Draw_String(x,y+15,"| _____|_________|_________|_________|_________|_________|_________|");
+	Draw_String(x,y+16,"|                                                                  |");
+	Draw_String(x,y+17,"| Number of Games:                                                 |");
+	Draw_String(x,y+18,"| _________________________________________________________________|");
+
+}
+
 */
