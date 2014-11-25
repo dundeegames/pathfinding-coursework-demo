@@ -1,4 +1,3 @@
-/*
 #include "lee.h"
 
 
@@ -10,16 +9,16 @@ Lee::Lee()
 // ------------------------------------------------------------------------------
 
 
-void Lee::generatePath(point s, point e)
+void Lee::generatePath(point start_, point end_,  Board* board_)
 {
-	start = s;
-	end = e;
+	start = start_;
+	end = end_;
+	map = board_;
 
-	// ToDo: update to work with Node board[][]
-	//board.setSquare(start.x, start.y, start.i);
-	//board.setSquare(end.x, end.y, end.i);
+	map->setI(start.x, start.y, start.i);
+	map->setI(end.x, end.y, end.i);
 
-	board.draw();
+	map->draw();
 	Sleep(1000);
 
 	// generate distances
@@ -48,7 +47,7 @@ void Lee::generateDistances()
 		if(wset.front().i > temp)
 		{
 			Sleep(100);
-			board.draw();
+			map->draw();
 			temp++;
 		}
 
@@ -60,21 +59,22 @@ void Lee::generateDistances()
 // ------------------------------------------------------------------------------
 
 
-bool Lee::checkAdjIndex(point tester, int index)
+bool Lee::checkAdjIndex(point tester, int i_)
 {
-	if(board.getSquare(tester.x + 1, tester.y) == index)
+	
+	if(map->getNode((tester.x + 1), tester.y).i == i_)
 		return true;
 	else
 	{
-		if(board.getSquare(tester.x - 1, tester.y) == index)
+		if(map->getNode((tester.x - 1), tester.y).i == i_)
 			return true;
 		else
 		{
-			if(board.getSquare(tester.x, tester.y + 1) == index)
+			if(map->getNode(tester.x, (tester.y + 1)).i == i_)
 				return true;
 			else
 			{
-				if(board.getSquare(tester.x, tester.y - 1) == index)
+				if(map->getNode(tester.x, (tester.y + 1)).i == i_)
 					return true;
 				else
 					return false;
@@ -88,52 +88,48 @@ bool Lee::checkAdjIndex(point tester, int index)
 
 void Lee::updateAdjSquares(point current)
 {
-	int tempSquare = 0;
+	int tempIndex = 0;
 
 	// update the distance number of the West adjacent square
 	// 1. get the x, y coordiantes of the West adjacnet square using the member funtion of
 	// 2. and cheke whether it is empty by comparing the distance with the Macro "B_EMPTY"
 	// 3. if it is empty, update the distance number using the current distance plus 1 using the member function of "board.setSquare()"
 	// 4. push the updated West adjacnet square to the working set using the member function of "wset.push_back()".
-	tempSquare = board.getSquare((current.x-1), current.y);
+	tempIndex = map->getNode((current.x-1), current.y).i;
 
-	if(tempSquare == B_EMPTY)
+	if(tempIndex == B_EMPTY)
 	{
-		board.setSquare((current.x-1), current.y, (current.i + 1));
-
+		map->setI((current.x-1), current.y, (current.i + 1));
 		wset.push_back(point((current.x-1), current.y, (current.i + 1)));
 	}
 
 
 	// update the distance number of the North adjacent square
-	tempSquare = board.getSquare(current.x, (current.y-1));
+	tempIndex = map->getNode(current.x, (current.y-1)).i;
 
-	if(tempSquare == B_EMPTY)
+	if(tempIndex == B_EMPTY)
 	{
-		board.setSquare(current.x, (current.y-1), (current.i + 1));
-
+		map->setI(current.x, (current.y-1), (current.i + 1));
 		wset.push_back(point(current.x, (current.y-1), (current.i + 1)));
 	}
 
-		
+
 	// update the distance number of the East adjacent square
-	tempSquare = board.getSquare((current.x+1), current.y);
+	tempIndex = map->getNode((current.x+1), current.y).i;
 
-	if(tempSquare == B_EMPTY)
+	if(tempIndex == B_EMPTY)
 	{
-		board.setSquare((current.x+1), current.y, (current.i + 1));
-
+		map->setI((current.x+1), current.y, (current.i + 1));
 		wset.push_back(point((current.x+1), current.y, (current.i + 1)));
 	}
 
 			
 	// update the distance number of the South adjacent square
-	tempSquare = board.getSquare(current.x, (current.y+1));
+	tempIndex = map->getNode(current.x, (current.y+1)).i;
 
-	if(tempSquare == B_EMPTY)
+	if(tempIndex == B_EMPTY)
 	{
-		board.setSquare(current.x, (current.y+1), (current.i + 1));
-
+		map->setI(current.x, (current.y+1), (current.i + 1));
 		wset.push_back(point(current.x, (current.y+1), (current.i + 1)));
 	}
 
@@ -144,7 +140,7 @@ void Lee::updateAdjSquares(point current)
 
 void Lee::traceBack()
 {
-	int tempSquare = 0;
+	int tempIndex = 0;
 
 	point currentPoint = end;
 
@@ -163,42 +159,42 @@ void Lee::traceBack()
 	do
 	{
 		// WEST -----------------------------------------------------------
-		tempSquare = board.getSquare((currentPoint.x - 1), currentPoint.y);
+		tempIndex = map->getNode((currentPoint.x-1), currentPoint.y).i;
 
-		if((tempSquare < currentPoint.i) && (tempSquare < B_WALL))
+		if((tempIndex < currentPoint.i) && (tempIndex < B_WALL))
 		{
 			currentPoint.x--;
-			currentPoint.i = tempSquare;
+			currentPoint.i = tempIndex;
 		}
 		else
 		{
 			// NORTH ----------------------------------------------------------
-			tempSquare = board.getSquare(currentPoint.x, (currentPoint.y - 1));
+			tempIndex = map->getNode(currentPoint.x, (currentPoint.y - 1)).i;
 
-			if((tempSquare < currentPoint.i) && (tempSquare < B_WALL))
+			if((tempIndex < currentPoint.i) && (tempIndex < B_WALL))
 			{
 				currentPoint.y--;
-				currentPoint.i = tempSquare;
+				currentPoint.i = tempIndex;
 			}
 			else
 			{
 				// EAST -----------------------------------------------------------
-				tempSquare = board.getSquare((currentPoint.x + 1), currentPoint.y);
+				tempIndex = map->getNode((currentPoint.x + 1), currentPoint.y).i;
 
-				if((tempSquare < currentPoint.i) && (tempSquare < B_WALL))
+				if((tempIndex < currentPoint.i) && (tempIndex < B_WALL))
 				{
 					currentPoint.x++;
-					currentPoint.i = tempSquare;
+					currentPoint.i = tempIndex;
 				}
 				else
 				{
 					// SOUTH ----------------------------------------------------------
-					tempSquare = board.getSquare(currentPoint.x, (currentPoint.y + 1));
+					tempIndex = map->getNode(currentPoint.x, (currentPoint.y + 1)).i;
 
-					if((tempSquare < currentPoint.i) && (tempSquare < B_WALL))
+					if((tempIndex < currentPoint.i) && (tempIndex < B_WALL))
 					{
 						currentPoint.y++;
-						currentPoint.i = tempSquare;
+						currentPoint.i = tempIndex;
 					}
 
 				}
@@ -221,11 +217,10 @@ void Lee::drawPath()
 {
 	while(!path_final.empty())
 	{
-		board.setSquare(path_final.top().x, path_final.top().y, path_final.top().i);
+		map->setI(path_final.top().x, path_final.top().y, path_final.top().i);
 		path_final.pop();
-		board.draw();
+		map->draw();
 		Sleep(100);
 	}
 }
-*/
 

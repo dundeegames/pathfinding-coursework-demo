@@ -1,4 +1,3 @@
-/*
 #ifndef LEE_H
 #define LEE_H
 
@@ -6,9 +5,8 @@
 #include <stack>
 #include <deque>
 
-#include "../board.h"
+#include "../board/board.h"
 
-extern Board board;
 
 #define MAX_I 50
 
@@ -18,11 +16,11 @@ struct point
 	int x, y, i;
 
 	point(){}
-	point(int a, int b, int c)
+	point(int x_, int y_, int i_)
 	{
-		x = a;
-		y = b;
-		i = c;
+		x = x_;
+		y = y_;
+		i = i_;
 	}
 };
 
@@ -32,7 +30,7 @@ class Lee
 {
 public:
 	Lee();
-	void generatePath(point s, point e);
+	void generatePath(point start_, point end_,  Board* board_);
 	void drawPath();
 
 private:
@@ -43,12 +41,13 @@ private:
 	void generateDistances();
 	void traceBack();
 
-	bool checkAdjIndex(point tester, int index);
+	bool checkAdjIndex(point tester, int i_);
 	void updateAdjSquares(point current);
 
 	point start, end;
+	Board* map;
+
 };
 
 
 #endif LEE_H
-*/

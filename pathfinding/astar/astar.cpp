@@ -1,13 +1,12 @@
-/*
-#include <windows.h>	// Sleep()
-#include <stdlib.h>		// abs()
-#include <iostream>
-
 #include "astar.h"
 
 
-void Astar::generatePath(Vector start, Vector end)
+
+void Astar::generatePath(Vector start, Vector end, Board* board_)
 {
+	map = board_;
+
+
 	// generate distances to find route to the end
 	generateDistances(start, end);
 
@@ -15,8 +14,8 @@ void Astar::generatePath(Vector start, Vector end)
 	traceBack(start, end);
 
 	Sleep(1000);
-	board.clearBoard();
-	board.draw();
+	map->clearBoard();
+	map->draw();
 
 	// display the final path
 	displayPath();	
@@ -29,8 +28,8 @@ void Astar::generateDistances(Vector start, Vector end)
 	Vector curr_point;
 
 	// set start/end to the board
-	board.board[start.x][start.y].setI(B_START);
-	board.board[end.x][end.y].setI(B_END);
+	map->setI(start.x, start.y, B_START);
+	map->setI(end.x, end.y, B_END);
 
 	// update squares adjacent to the start position
 	updateAdjSquares(start, end);
@@ -42,7 +41,7 @@ void Astar::generateDistances(Vector start, Vector end)
 		wset.pop();
 		
 		updateAdjSquares(curr_point, end);
-		board.draw();
+		map->draw();
 		Sleep(200);
 	}
 }
@@ -52,6 +51,8 @@ void Astar::generateDistances(Vector start, Vector end)
 
 void Astar::updateAdjSquares(Vector point, Vector goal)
 {
+	Node tempNode;
+
 	// g = path length so far (the index)
 	int g = 0;
 	// h = estimated distance to travel to the goal
@@ -68,89 +69,86 @@ void Astar::updateAdjSquares(Vector point, Vector goal)
 		// (5) push the updated West adjacent point "cVector" to the working set using the member function of "wset.push()".
 	
 	
-	Node tempNode = board.board[(point.x - 1)][point.y];
+	tempNode = map->getNode((point.x - 1), point.y);
 	
-	if(tempNode.getI() == B_EMPTY)
+	if(tempNode.i == B_EMPTY)
 	{
 		// g is the distance of the current node plus one
-		g = board.board[point.x][point.y].getI() + 1;
+		g= map->getNode(point.x, point.y).i + 1;
 
 		// h is the Manhattan distance from the West adjacent node to target node
 		h = manhattanDistance(Vector((point.x - 1), point.y), goal);
 
 		f = g + h;
 
-		// if(f < tempNode.getF())
-
-		if(f < tempNode.getI())
+		if(f < tempNode.i)
 		{
-			board.board[(point.x - 1)][point.y].setFGH(g, h);
+			map->setFGH((point.x - 1), point.y, g, h);
 			wset.push(Vector((point.x - 1), point.y, f));
 		}
 	}
 
 
 	// 2 update the distance number of the North adjacent node
-	tempNode = board.board[point.x][(point.y - 1)];
-	
-	if(tempNode.getI() == B_EMPTY)
+	tempNode = map->getNode(point.x, (point.y - 1));
+
+	if(tempNode.i == B_EMPTY)
 	{
 		// g is the distance of the current node plus one
-		g = board.board[point.x][point.y].getI() + 1;
+		g= map->getNode(point.x, point.y).i + 1;
 
 		// h is the Manhattan distance from the West adjacent node to target node
 		h = manhattanDistance(Vector(point.x, (point.y - 1)), goal);
 
 		f = g + h;
 
-		if(f < tempNode.getI())
+		if(f < tempNode.i)
 		{
-			board.board[point.x][(point.y - 1)].setFGH(g, h);
+			map->setFGH(point.x, (point.y - 1), g, h);
 			wset.push(Vector(point.x, (point.y - 1), f));
 		}
-	}
-
+	}	
 
 	// 3 update the distance number of the East adjacent node
-	tempNode = board.board[(point.x + 1)][point.y];
+	tempNode = map->getNode((point.x - 1), point.y);
 	
-	if(tempNode.getI() == B_EMPTY)
+	if(tempNode.i == B_EMPTY)
 	{
 		// g is the distance of the current node plus one
-		g = board.board[point.x][point.y].getI() + 1;
+		g= map->getNode(point.x, point.y).i + 1;
 
 		// h is the Manhattan distance from the West adjacent node to target node
 		h = manhattanDistance(Vector((point.x + 1), point.y), goal);
 
 		f = g + h;
 
-		if(f < tempNode.getI())
+		if(f < tempNode.i)
 		{
-			board.board[(point.x + 1)][point.y].setFGH(g, h);
+			map->setFGH((point.x + 1), point.y, g, h);
 			wset.push(Vector((point.x + 1), point.y, f));
 		}
 	}
-
+	
 
 	// 4 update the distance number of the South adjacent node
-	tempNode = board.board[point.x][(point.y + 1)];
-	
-	if(tempNode.getI() == B_EMPTY)
+	tempNode = map->getNode(point.x, (point.y + 1));
+
+	if(tempNode.i == B_EMPTY)
 	{
 		// g is the distance of the current node plus one
-		g = board.board[point.x][point.y].getI() + 1;
+		g= map->getNode(point.x, point.y).i + 1;
 
 		// h is the Manhattan distance from the West adjacent node to target node
 		h = manhattanDistance(Vector(point.x, (point.y + 1)), goal);
 
 		f = g + h;
 
-		if(f < tempNode.getI())
+		if(f < tempNode.i)
 		{
-			board.board[point.x][(point.y + 1)].setFGH(g, h);
+			map->setFGH(point.x, (point.y + 1), g, h);
 			wset.push(Vector(point.x, (point.y + 1), f));
 		}
-	}
+	}	
 
 
 }// end of updateAdjSquares
@@ -158,24 +156,29 @@ void Astar::updateAdjSquares(Vector point, Vector goal)
 // ------------------------------------------------------------------------------
 
 
-bool Astar::isAdjIndex(Vector point, int i)
+bool Astar::isAdjIndex(Vector point, int i_)
 {
-	if(board.board[point.x + 1][point.y].getI() == i)
+	
+
+
+	if(map->getNode((point.x + 1), point.y).i == i_)
 		return true;
 	else
 	{
-		if(board.board[point.x - 1][point.y].getI() == i)
+		if(map->getNode((point.x - 1), point.y).i == i_)
 			return true;
 		else
 		{
-			if(board.board[point.x][point.y + 1].getI() == i)
+			if(map->getNode(point.x, (point.y + 1)).i == i_)
 				return true;
 			else
 			{
-				if(board.board[point.x][point.y - 1].getI() == i)
+				if(map->getNode(point.x, (point.y - 1)).i == i_)
 					return true;
 				else
+				{
 					return false;
+				}
 			}
 		}
 	}
@@ -207,19 +210,19 @@ void Astar::traceBack(Vector start, Vector end)
 	// 2. in each loop, find the lowest node "board.board[][]" from the four adjacent node of the current node in clockwise orientation of West, North, East and South
 	// 3. in each loop, push the lowest point "cVetor" to the path stack using the function of "path_final.push()"
 
-
+	
 	currentPoint = end;
 
 	do
 	{
-		currentNode = board.board[currentPoint.x][currentPoint.y];
+		currentNode = map->getNode(currentPoint.x, currentPoint.y);
 
 
 		// WEST -----------------------------------------------------------
-		tempNode = board.board[(currentPoint.x - 1)][currentPoint.y];
+		tempNode = map->getNode((currentPoint.x - 1), currentPoint.y);
 		
 
-		if((tempNode.getI() < currentNode.getI()) && (tempNode.getI() < B_WALL))
+		if((tempNode.i < currentNode.i) && (tempNode.i < B_WALL))
 		{
 			currentPoint.x--;
 			//currentPoint.i = tempSquare;
@@ -227,9 +230,9 @@ void Astar::traceBack(Vector start, Vector end)
 		else
 		{
 			// NORTH ----------------------------------------------------------
-			tempNode = board.board[currentPoint.x][(currentPoint.y - 1)];
+			tempNode = map->getNode(currentPoint.x, (currentPoint.y - 1));
 			
-			if((tempNode.getI() < currentNode.getI()) && (tempNode.getI() < B_WALL))
+			if((tempNode.i < currentNode.i) && (tempNode.i < B_WALL))
 			{
 				currentPoint.y--;
 				//currentPoint.i = tempSquare;
@@ -237,9 +240,9 @@ void Astar::traceBack(Vector start, Vector end)
 			else
 			{
 				// EAST -----------------------------------------------------------
-				tempNode = board.board[(currentPoint.x + 1)][currentPoint.y];
+				tempNode = map->getNode((currentPoint.x + 1), currentPoint.y);
 
-				if((tempNode.getI() < currentNode.getI()) && (tempNode.getI() < B_WALL))
+				if((tempNode.i < currentNode.i) && (tempNode.i < B_WALL))
 				{
 					currentPoint.x++;
 					//currentPoint.i = tempSquare;
@@ -247,9 +250,9 @@ void Astar::traceBack(Vector start, Vector end)
 				else
 				{
 					// SOUTH ----------------------------------------------------------
-					tempNode = board.board[currentPoint.x][(currentPoint.y + 1)];
+					tempNode = map->getNode(currentPoint.x, (currentPoint.y + 1));
 
-					if((tempNode.getI() < currentNode.getI()) && (tempNode.getI() < B_WALL))
+					if((tempNode.i < currentNode.i) && (tempNode.i < B_WALL))
 					{
 						currentPoint.y++;
 						//currentPoint.i = tempSquare;
@@ -264,7 +267,7 @@ void Astar::traceBack(Vector start, Vector end)
 		// push the adjacent point with lowest distance to the path stack using the function of "path_final.push()"
 		path_final.push(currentPoint);
 
-	}while(currentNode.getI() > B_START);
+	}while(currentNode.i > B_START);
 	
 }
 
@@ -275,10 +278,10 @@ void Astar::displayPath()
 {
 	while(!path_final.empty())
 	{
-		board.board[path_final.top().x][path_final.top().y].setI(path_final.size());
+		map->setI(path_final.top().x, path_final.top().y, path_final.size());
 		path_final.pop();
 
-		board.draw();
+		map->draw();
 		Sleep(200);
 	}
 
@@ -292,4 +295,3 @@ int Astar::manhattanDistance(Vector point, Vector goal)
 	int distance = (abs(point.x-goal.x) + abs(point.y-goal.y));
 	return distance;
 }
-*/

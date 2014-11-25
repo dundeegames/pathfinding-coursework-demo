@@ -1,13 +1,17 @@
-/*
 #ifndef ASTAR_H
 #define ASTAR_H
 
+#include "../board/board.h"
+#include "../gpsa_application.h"
+
+#include <iostream>
+#include <windows.h>	// Sleep()
+#include <stdlib.h>		// abs()
 #include <stack>
 #include <queue> 
 
-#include "../node.h"
-#include "../board.h"
-#include "../gpsa_application.h"
+
+
 
 using namespace std;
 
@@ -39,15 +43,18 @@ struct Vector
 	
 };
 
-extern Board board;
+
 
 class Astar
 {
 public:
 
-	void generatePath(Vector start, Vector end);
+	void generatePath(Vector start, Vector end, Board* board_);
 
 private:
+
+	Board* map;
+
 
 	std::stack<Vector> path_final;
 
@@ -60,7 +67,7 @@ private:
 	void displayPath();
 
 	void updateAdjSquares(Vector point, Vector goal);
-	bool isAdjIndex(Vector point, int i);
+	bool isAdjIndex(Vector point, int i_);
 
 
 	int manhattanDistance(Vector point, Vector goal);
@@ -68,4 +75,3 @@ private:
 };
 
 #endif ASTAR_H
-*/
