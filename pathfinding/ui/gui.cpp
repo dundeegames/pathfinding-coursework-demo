@@ -332,11 +332,11 @@ void Gui::Instructions_Sreen()			// shows the INSTRUCTIONS screen
 	Set_Color(12,0);					// set colour to red
 
 	Draw_String(2,20,
-		"Joe and Sid have devised a new game.\n\
-  They each start with a score of 301 and aim to reduce this to zero as quickly\n\
-  as possible by each throwing one dart per turn. The dart board has a bull\n\
-  and twenty segments around the bull only. There are no trebles, doubles or\n\
-  outer that would take the total below fifty is ignored.");
+		"The quick brown fox jumps over the lazy dog.\n\
+  The quick brown fox jumps over the lazy dog.The quick brown fox jumps\n\
+   over the lazy dog. The quick brown fox jumps over the lazy dog.\n\
+  The quick brown fox jumps over the lazy dog. The quick brown fox jumps \n\
+  over the lazy dog");
 
 
 	Press_Key(22,45,"press key to return to main menu...");
@@ -351,16 +351,16 @@ void Gui::About_Screen()				// shows the ABOUT screen
 	Clear_Screen();
 
 	Draw_Frame(9, 1, 10, 60, 12);
-	Draw_Banner(17, 6, 9, ABOUT);
+	Draw_Banner(19, 6, 9, ABOUT);
 
 	Set_Color(9,0);						// set colour to blue
 
 	Draw_String(2,20,
-		"Joe and Sid have devised a new game.\n\
-  They each start with a score of 301 and aim to reduce this to zero as quickly\n\
-  as possible by each throwing one dart per turn. The dart board has a bull\n\
-  and twenty segments around the bull only. There are no trebles, doubles or\n\
-  outer that would take the total below fifty is ignored.");
+		"The quick brown fox jumps over the lazy dog.\n\
+  The quick brown fox jumps over the lazy dog.The quick brown fox jumps\n\
+   over the lazy dog. The quick brown fox jumps over the lazy dog.\n\
+  The quick brown fox jumps over the lazy dog. The quick brown fox jumps \n\
+  over the lazy dog");
 
 
 	Press_Key(22,45,"press key to return to main menu...");

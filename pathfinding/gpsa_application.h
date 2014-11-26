@@ -6,9 +6,9 @@
 #include <time.h>
 
 #include "ui/gui.h"
-//#include "board.h"
-//#include "astar/astar.h"
-//#include "lee/lee.h"
+#include "board/board.h"
+#include "astar/astar.h"
+#include "lee/lee.h"
 
 
 enum State {MAIN_MENU, INSTRUCTIONS_MENU, ABOUT_MENU, HASHING, LEE, ASTAR, END};
@@ -26,13 +26,12 @@ public:
 private:
 
 	Gui gui;
-	//Board board;
-
 	bool appRunning;
-	State state;	// State enum is part of gui.h
+	State state;			// State enum is part of gui.h
 
-	//Astar astar;
-	//Lee lee;
+	Board* board;
+	Astar astar;
+	Lee* lee;
 
 	void Manage_Input();
 

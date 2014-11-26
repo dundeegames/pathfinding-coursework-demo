@@ -2,7 +2,6 @@
 #define ASTAR_H
 
 #include "../board/board.h"
-#include "../gpsa_application.h"
 
 #include <iostream>
 #include <windows.h>	// Sleep()

@@ -22,7 +22,6 @@ GPSAapplication::~GPSAapplication()
 void GPSAapplication::run()
 {
 	gui.init();
-
 	
 
 	while(appRunning)
@@ -44,22 +43,48 @@ void GPSAapplication::run()
 			state = MAIN_MENU;
 			break;
 
+		case HASHING:
+
+			state = MAIN_MENU;
+			break;
+
 		case LEE:
-			/*
-			pathing.generatePath(point(2, 5, B_START), point(15, 17, B_END));
+			board = new Board();
+			board->init(&gui, 11, 5);
+			board->loadMap(MAP_L);
+			board->drawMap();
+
+			lee = new Lee();
+
+			lee->generatePath(point(2, 5, B_START), point(15, 17, B_END), board);
 
 			Sleep(1000);
-			board.clearPathing();
 
-			//-------------------
-			board.draw();
+			board->loadMap(MAP_L);		// clear pathing
+			board->drawMap();
 
-			pathing.drawPath();
-			*/
+			lee->drawPath();
+
+			gui.Press_Key(22,46,"press any key to return to main menu..");
+
+			delete lee;
+			delete board;
+			state = MAIN_MENU;
 			break;
 
 		case ASTAR:
-			//astar.generatePath(Vector(2, 16), Vector(15, 10));
+			board = new Board();
+			board->init(&gui, 11, 5);
+			board->loadMap(MAP_A);
+			board->drawMap();
+
+			astar.generatePath(Vector(2, 16), Vector(15, 10), board);
+
+			gui.Press_Key(22,46,"press any key to return to main menu..");
+
+			delete board;
+
+			state = MAIN_MENU;
 			break;
 
 		case END:
@@ -101,21 +126,21 @@ void GPSAapplication::Manage_Input()
 			// 
 			else if(key=='1' || key==49)
 			{
-
+				state = HASHING;
 				break;
 			}
 
 			// 
 			else if(key=='2' || key==50)
 			{
-
+				state = LEE;
 				break;
 			}
 
 			// 
 			else if(key=='3' || key==51)
 			{
-
+				state = ASTAR;
 				break;
 			}
 

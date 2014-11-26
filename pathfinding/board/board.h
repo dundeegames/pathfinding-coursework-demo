@@ -1,7 +1,13 @@
 #ifndef BOARD_H
 #define BOARD_H
 
-//#include"node.h"
+#include "../ui/gui.h"
+
+#include <iostream>
+#include <fstream>
+
+using namespace std;
+
 
 #define BOARD_X 20
 #define BOARD_Y 20
@@ -10,6 +16,10 @@
 #define B_WALL	999
 #define B_START	0
 #define B_END	1001
+
+
+enum MapType {MAP_A, MAP_L};
+
 
 struct Node
 {
@@ -32,15 +42,17 @@ public:
 	Board();
 	~Board();
 
-	void loadMap(char* file_);
 
+	void init(Gui* ui_, int xpos_, int ypos_);
 
+	void loadMap(char* file_);			// load external map
+	void loadMap(MapType type_);		// load internal map
 
 	void setI(int x, int y, int i_);
 	void setFGH(int x, int y, int g_, int h_);
 
 	// A* ---------------------
-	void draw();
+	void drawMap();
 	void clearBoard();
 
 
@@ -52,7 +64,9 @@ private:
 
 	// Lee --------------------
 	Node nodeMap[BOARD_X][BOARD_Y];
-
+	int xPosition;
+	int yPosition;
+	Gui* ui;
 
 };
 

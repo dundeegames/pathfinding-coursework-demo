@@ -51,18 +51,27 @@ public:
 	void GameOver_Screen();
 	void GoodBye_Screen();
 
-	
-private:
-
-	CONSOLE_SCREEN_BUFFER_INFO con_info;	// holds screen info
-	HANDLE hconsole;						// handle to console
-	
 	void Draw_String(int x,int y, char *string);				// draws variable at (x,y)
 	void Draw_Integer(int x,int y, int n, int value);
 	void Draw_Character(int x,int y, char c);
 	void Draw_Float(int x,int y, int n, float value);
 
 	void Press_Key(int x,int y, char *string);					// draws message at (x,y) and wait for key press to finish
+
+	// this function sets the color of the console output
+	inline void Set_Color(int fcolor, int bcolor=0) {SetConsoleTextAttribute(hconsole,(WORD)((bcolor << 4) | fcolor));}
+
+	void Clear_Screen();
+
+
+private:
+
+	CONSOLE_SCREEN_BUFFER_INFO con_info;	// holds screen info
+	HANDLE hconsole;						// handle to console
+	
+
+
+
 	void Draw_Lines(int x, int y_1, int y_2, int limit);
 	void Draw_Button(int x,int y, int colour, char *string);	// colour 0-15
 
@@ -74,10 +83,9 @@ private:
 
 	void Draw_VertLine(int x, int y, int height);				// min height = 2
 
-	// this function sets the color of the console output
-	inline void Set_Color(int fcolor, int bcolor=0) {SetConsoleTextAttribute(hconsole,(WORD)((bcolor << 4) | fcolor));}
 
-	void Clear_Screen();
+
+	
 
 };
 

@@ -18,7 +18,7 @@ void Lee::generatePath(point start_, point end_,  Board* board_)
 	map->setI(start.x, start.y, start.i);
 	map->setI(end.x, end.y, end.i);
 
-	map->draw();
+	//map->draw();
 	Sleep(1000);
 
 	// generate distances
@@ -47,7 +47,7 @@ void Lee::generateDistances()
 		if(wset.front().i > temp)
 		{
 			Sleep(100);
-			map->draw();
+			//map->draw();
 			temp++;
 		}
 
@@ -219,7 +219,7 @@ void Lee::drawPath()
 	{
 		map->setI(path_final.top().x, path_final.top().y, path_final.top().i);
 		path_final.pop();
-		map->draw();
+		//map->draw();
 		Sleep(100);
 	}
 }

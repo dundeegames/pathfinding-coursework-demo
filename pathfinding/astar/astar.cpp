@@ -15,7 +15,7 @@ void Astar::generatePath(Vector start, Vector end, Board* board_)
 
 	Sleep(1000);
 	map->clearBoard();
-	map->draw();
+	//map->draw();
 
 	// display the final path
 	displayPath();	
@@ -41,7 +41,7 @@ void Astar::generateDistances(Vector start, Vector end)
 		wset.pop();
 		
 		updateAdjSquares(curr_point, end);
-		map->draw();
+		//map->draw();
 		Sleep(200);
 	}
 }
@@ -281,7 +281,7 @@ void Astar::displayPath()
 		map->setI(path_final.top().x, path_final.top().y, path_final.size());
 		path_final.pop();
 
-		map->draw();
+		//map->draw();
 		Sleep(200);
 	}
 
