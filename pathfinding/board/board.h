@@ -2,6 +2,7 @@
 #define BOARD_H
 
 #include "../ui/gui.h"
+#include "node.h"
 
 #include <iostream>
 #include <fstream>
@@ -21,20 +22,6 @@ using namespace std;
 enum MapType {MAP_A, MAP_L};
 
 
-struct Node
-{
-	int i;		// index of tile = g, B_EMPTY, B_WALL, B_START, B_END
-
-	int f;		// f costs for pathing
-	int g;		// the movement cost to move from the starting point to a given square on the grid, following the path generated to get there
-	int h;		// the estimated movement cost to move from that given square on the grid to the final destination
-
-	Node();
-	Node(int i_);
-	Node(int f_, int g_, int h_, int i_);
-};
-
-
 class Board
 {
 
@@ -51,14 +38,16 @@ public:
 	void setI(int x, int y, int i_);
 	void setFGH(int x, int y, int g_, int h_);
 
-	// A* ---------------------
+	int getI(int x, int y);
+	int getF(int x, int y);
+	int getH(int x, int y);
+
 	void drawMap();
+	void drawIndex(int x, int y, int i_);
 	void clearBoard();
 
-
-	// Lee --------------------
-	//void setNode(int x, int y, Node type);
 	Node getNode(int x, int y);
+
 
 private:
 
@@ -71,21 +60,3 @@ private:
 };
 
 #endif BOARD_H
-
-
-/*
-// Lee
-
-class cBoard
-{
-public:
-	void setSquare(int x, int y, int type);
-	int getSquare(int x, int y);
-
-	void clearPathing();
-
-private:
-	int board[BOARD_X][BOARD_Y];
-};
-
-*/

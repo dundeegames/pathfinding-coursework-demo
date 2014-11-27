@@ -48,6 +48,9 @@
     <ClCompile Include="board\board.cpp">
       <Filter>board</Filter>
     </ClCompile>
+    <ClCompile Include="board\node.cpp">
+      <Filter>board</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ui\gui.h">
@@ -63,6 +66,9 @@
       <Filter>lee</Filter>
     </ClInclude>
     <ClInclude Include="board\board.h">
+      <Filter>board</Filter>
+    </ClInclude>
+    <ClInclude Include="board\node.h">
       <Filter>board</Filter>
     </ClInclude>
   </ItemGroup>

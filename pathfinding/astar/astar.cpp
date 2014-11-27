@@ -41,7 +41,6 @@ void Astar::generateDistances(Vector start, Vector end)
 		wset.pop();
 		
 		updateAdjSquares(curr_point, end);
-		//map->draw();
 		Sleep(200);
 	}
 }
@@ -70,18 +69,18 @@ void Astar::updateAdjSquares(Vector point, Vector goal)
 	
 	
 	tempNode = map->getNode((point.x - 1), point.y);
-	
-	if(tempNode.i == B_EMPTY)
-	{
-		// g is the distance of the current node plus one
-		g= map->getNode(point.x, point.y).i + 1;
 
+	// g is the distance of the current node plus one
+	g = map->getI(point.x, point.y) + 1;
+
+	if(tempNode.getI() == B_EMPTY)
+	{
 		// h is the Manhattan distance from the West adjacent node to target node
 		h = manhattanDistance(Vector((point.x - 1), point.y), goal);
 
 		f = g + h;
 
-		if(f < tempNode.i)
+		if(f < tempNode.getF())
 		{
 			map->setFGH((point.x - 1), point.y, g, h);
 			wset.push(Vector((point.x - 1), point.y, f));
@@ -92,17 +91,17 @@ void Astar::updateAdjSquares(Vector point, Vector goal)
 	// 2 update the distance number of the North adjacent node
 	tempNode = map->getNode(point.x, (point.y - 1));
 
-	if(tempNode.i == B_EMPTY)
+	if(tempNode.getI() == B_EMPTY)
 	{
 		// g is the distance of the current node plus one
-		g= map->getNode(point.x, point.y).i + 1;
+		//g= map->getNode(point.x, point.y).i + 1;
 
 		// h is the Manhattan distance from the West adjacent node to target node
 		h = manhattanDistance(Vector(point.x, (point.y - 1)), goal);
 
 		f = g + h;
 
-		if(f < tempNode.i)
+		if(f < tempNode.getF())
 		{
 			map->setFGH(point.x, (point.y - 1), g, h);
 			wset.push(Vector(point.x, (point.y - 1), f));
@@ -112,17 +111,17 @@ void Astar::updateAdjSquares(Vector point, Vector goal)
 	// 3 update the distance number of the East adjacent node
 	tempNode = map->getNode((point.x - 1), point.y);
 	
-	if(tempNode.i == B_EMPTY)
+	if(tempNode.getI() == B_EMPTY)
 	{
 		// g is the distance of the current node plus one
-		g= map->getNode(point.x, point.y).i + 1;
+		//g= map->getI(point.x, point.y) + 1;
 
 		// h is the Manhattan distance from the West adjacent node to target node
 		h = manhattanDistance(Vector((point.x + 1), point.y), goal);
 
 		f = g + h;
 
-		if(f < tempNode.i)
+		if(f < tempNode.getF())
 		{
 			map->setFGH((point.x + 1), point.y, g, h);
 			wset.push(Vector((point.x + 1), point.y, f));
@@ -133,17 +132,17 @@ void Astar::updateAdjSquares(Vector point, Vector goal)
 	// 4 update the distance number of the South adjacent node
 	tempNode = map->getNode(point.x, (point.y + 1));
 
-	if(tempNode.i == B_EMPTY)
+	if(tempNode.getI() == B_EMPTY)
 	{
 		// g is the distance of the current node plus one
-		g= map->getNode(point.x, point.y).i + 1;
+		//g= map->getNode(point.x, point.y).i + 1;
 
 		// h is the Manhattan distance from the West adjacent node to target node
 		h = manhattanDistance(Vector(point.x, (point.y + 1)), goal);
 
 		f = g + h;
 
-		if(f < tempNode.i)
+		if(f < tempNode.getF())
 		{
 			map->setFGH(point.x, (point.y + 1), g, h);
 			wset.push(Vector(point.x, (point.y + 1), f));
@@ -161,19 +160,19 @@ bool Astar::isAdjIndex(Vector point, int i_)
 	
 
 
-	if(map->getNode((point.x + 1), point.y).i == i_)
+	if(map->getI((point.x + 1), point.y) == i_)
 		return true;
 	else
 	{
-		if(map->getNode((point.x - 1), point.y).i == i_)
+		if(map->getI((point.x - 1), point.y) == i_)
 			return true;
 		else
 		{
-			if(map->getNode(point.x, (point.y + 1)).i == i_)
+			if(map->getI(point.x, (point.y + 1)) == i_)
 				return true;
 			else
 			{
-				if(map->getNode(point.x, (point.y - 1)).i == i_)
+				if(map->getI(point.x, (point.y - 1)) == i_)
 					return true;
 				else
 				{
@@ -190,8 +189,8 @@ bool Astar::isAdjIndex(Vector point, int i_)
 void Astar::traceBack(Vector start, Vector end)
 {
 	Vector currentPoint;
-	Node tempNode;
-	Node currentNode;
+	int tempIndex;
+	int currentIndex;
 
 	// push the end point to the path stack using the function "path_final.push()", note that the data type in the path stack is "cVector"
 	path_final.push(end);
@@ -215,14 +214,14 @@ void Astar::traceBack(Vector start, Vector end)
 
 	do
 	{
-		currentNode = map->getNode(currentPoint.x, currentPoint.y);
+		currentIndex = map->getI(currentPoint.x, currentPoint.y);
 
 
 		// WEST -----------------------------------------------------------
-		tempNode = map->getNode((currentPoint.x - 1), currentPoint.y);
+		tempIndex = map->getI((currentPoint.x - 1), currentPoint.y);
 		
 
-		if((tempNode.i < currentNode.i) && (tempNode.i < B_WALL))
+		if((tempIndex < currentIndex) && (tempIndex < B_WALL))
 		{
 			currentPoint.x--;
 			//currentPoint.i = tempSquare;
@@ -230,9 +229,9 @@ void Astar::traceBack(Vector start, Vector end)
 		else
 		{
 			// NORTH ----------------------------------------------------------
-			tempNode = map->getNode(currentPoint.x, (currentPoint.y - 1));
+			tempIndex = map->getI(currentPoint.x, (currentPoint.y - 1));
 			
-			if((tempNode.i < currentNode.i) && (tempNode.i < B_WALL))
+			if((tempIndex < currentIndex) && (tempIndex < B_WALL))
 			{
 				currentPoint.y--;
 				//currentPoint.i = tempSquare;
@@ -240,9 +239,9 @@ void Astar::traceBack(Vector start, Vector end)
 			else
 			{
 				// EAST -----------------------------------------------------------
-				tempNode = map->getNode((currentPoint.x + 1), currentPoint.y);
+				tempIndex = map->getI((currentPoint.x + 1), currentPoint.y);
 
-				if((tempNode.i < currentNode.i) && (tempNode.i < B_WALL))
+				if((tempIndex < currentIndex) && (tempIndex < B_WALL))
 				{
 					currentPoint.x++;
 					//currentPoint.i = tempSquare;
@@ -250,9 +249,9 @@ void Astar::traceBack(Vector start, Vector end)
 				else
 				{
 					// SOUTH ----------------------------------------------------------
-					tempNode = map->getNode(currentPoint.x, (currentPoint.y + 1));
+					tempIndex = map->getI(currentPoint.x, (currentPoint.y + 1));
 
-					if((tempNode.i < currentNode.i) && (tempNode.i < B_WALL))
+					if((tempIndex < currentIndex) && (tempIndex < B_WALL))
 					{
 						currentPoint.y++;
 						//currentPoint.i = tempSquare;
@@ -267,7 +266,7 @@ void Astar::traceBack(Vector start, Vector end)
 		// push the adjacent point with lowest distance to the path stack using the function of "path_final.push()"
 		path_final.push(currentPoint);
 
-	}while(currentNode.i > B_START);
+	}while(currentIndex > B_START);
 	
 }
 

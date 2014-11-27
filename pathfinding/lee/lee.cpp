@@ -62,19 +62,19 @@ void Lee::generateDistances()
 bool Lee::checkAdjIndex(point tester, int i_)
 {
 	
-	if(map->getNode((tester.x + 1), tester.y).i == i_)
+	if(map->getI((tester.x + 1), tester.y) == i_)
 		return true;
 	else
 	{
-		if(map->getNode((tester.x - 1), tester.y).i == i_)
+		if(map->getI((tester.x - 1), tester.y) == i_)
 			return true;
 		else
 		{
-			if(map->getNode(tester.x, (tester.y + 1)).i == i_)
+			if(map->getI(tester.x, (tester.y + 1)) == i_)
 				return true;
 			else
 			{
-				if(map->getNode(tester.x, (tester.y + 1)).i == i_)
+				if(map->getI(tester.x, (tester.y + 1)) == i_)
 					return true;
 				else
 					return false;
@@ -95,7 +95,7 @@ void Lee::updateAdjSquares(point current)
 	// 2. and cheke whether it is empty by comparing the distance with the Macro "B_EMPTY"
 	// 3. if it is empty, update the distance number using the current distance plus 1 using the member function of "board.setSquare()"
 	// 4. push the updated West adjacnet square to the working set using the member function of "wset.push_back()".
-	tempIndex = map->getNode((current.x-1), current.y).i;
+	tempIndex = map->getI((current.x-1), current.y);
 
 	if(tempIndex == B_EMPTY)
 	{
@@ -105,7 +105,7 @@ void Lee::updateAdjSquares(point current)
 
 
 	// update the distance number of the North adjacent square
-	tempIndex = map->getNode(current.x, (current.y-1)).i;
+	tempIndex = map->getI(current.x, (current.y-1));
 
 	if(tempIndex == B_EMPTY)
 	{
@@ -115,7 +115,7 @@ void Lee::updateAdjSquares(point current)
 
 
 	// update the distance number of the East adjacent square
-	tempIndex = map->getNode((current.x+1), current.y).i;
+	tempIndex = map->getI((current.x+1), current.y);
 
 	if(tempIndex == B_EMPTY)
 	{
@@ -125,7 +125,7 @@ void Lee::updateAdjSquares(point current)
 
 			
 	// update the distance number of the South adjacent square
-	tempIndex = map->getNode(current.x, (current.y+1)).i;
+	tempIndex = map->getI(current.x, (current.y+1));
 
 	if(tempIndex == B_EMPTY)
 	{
@@ -159,7 +159,7 @@ void Lee::traceBack()
 	do
 	{
 		// WEST -----------------------------------------------------------
-		tempIndex = map->getNode((currentPoint.x-1), currentPoint.y).i;
+		tempIndex = map->getI((currentPoint.x-1), currentPoint.y);
 
 		if((tempIndex < currentPoint.i) && (tempIndex < B_WALL))
 		{
@@ -169,7 +169,7 @@ void Lee::traceBack()
 		else
 		{
 			// NORTH ----------------------------------------------------------
-			tempIndex = map->getNode(currentPoint.x, (currentPoint.y - 1)).i;
+			tempIndex = map->getI(currentPoint.x, (currentPoint.y - 1));
 
 			if((tempIndex < currentPoint.i) && (tempIndex < B_WALL))
 			{
@@ -179,7 +179,7 @@ void Lee::traceBack()
 			else
 			{
 				// EAST -----------------------------------------------------------
-				tempIndex = map->getNode((currentPoint.x + 1), currentPoint.y).i;
+				tempIndex = map->getI((currentPoint.x + 1), currentPoint.y);
 
 				if((tempIndex < currentPoint.i) && (tempIndex < B_WALL))
 				{
@@ -189,7 +189,7 @@ void Lee::traceBack()
 				else
 				{
 					// SOUTH ----------------------------------------------------------
-					tempIndex = map->getNode(currentPoint.x, (currentPoint.y + 1)).i;
+					tempIndex = map->getI(currentPoint.x, (currentPoint.y + 1));
 
 					if((tempIndex < currentPoint.i) && (tempIndex < B_WALL))
 					{
@@ -219,7 +219,6 @@ void Lee::drawPath()
 	{
 		map->setI(path_final.top().x, path_final.top().y, path_final.top().i);
 		path_final.pop();
-		//map->draw();
 		Sleep(100);
 	}
 }

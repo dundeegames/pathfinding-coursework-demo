@@ -56,11 +56,9 @@ bool Gui::loadMap(char* name)
 
 // ------------------------------------------------------------------------------
 
-
+// this function draws a string at the given x,y
 void Gui::Draw_String(int x,int y, char *string)
 {
-	// this function draws a string at the given x,y
-
 	COORD cursor_pos; // used to pass coords
 
 	// set printing position
@@ -74,11 +72,9 @@ void Gui::Draw_String(int x,int y, char *string)
 
 // ------------------------------------------------------------------------------
 
-
+// this function draws a integer at the given x,y with width n
 void Gui::Draw_Integer(int x,int y, int n, int value)
 {
-	// this function draws a integer at the given x,y with width n
-
 	COORD cursor_pos; // used to pass coords
 
 	// set printing position
@@ -95,11 +91,9 @@ void Gui::Draw_Integer(int x,int y, int n, int value)
 
 // ------------------------------------------------------------------------------
 
-
+// this function draws a character at the given x,y
 void Gui::Draw_Character(int x,int y, char c)
 {
-	// this function draws a character at the given x,y
-
 	COORD cursor_pos; // used to pass coords
 
 	// set printing position
@@ -113,11 +107,9 @@ void Gui::Draw_Character(int x,int y, char c)
 
 // ------------------------------------------------------------------------------
 
-
+// this function draws a integer at the given x,y with width n
 void Gui::Draw_Float(int x,int y, int n, float value)
 {
-	// this function draws a integer at the given x,y with width n
-
 	COORD cursor_pos; // used to pass coords
 
 	// set printing position
@@ -133,11 +125,9 @@ void Gui::Draw_Float(int x,int y, int n, float value)
 
 // ------------------------------------------------------------------------------
 
-
+// draws a string at the given x,y AND wait for key press to finish
 void Gui::Press_Key(int x,int y, char *string)
 {
-	// this function draws a string at the given x,y AND wait for key press to finish
-
 	int  k = 7;							// lower values give faint colours
 
 	while(!_kbhit()) {					// wait for you
@@ -158,11 +148,9 @@ void Gui::Press_Key(int x,int y, char *string)
 
 // ------------------------------------------------------------------------------
 
-
+// draws a 2 lines Starting at x, at height y_1 and y_2, of length = limit
 void Gui::Draw_Lines(int x, int y_1, int y_2, int limit)
 {
-	// this function draws a 2 lines Starting at x, at height y_1 and y_2, of length = limit
-
 	for (int i = 0; i < limit; i++) {
 
 		Draw_String(x+i,y_1,"-");
@@ -174,11 +162,9 @@ void Gui::Draw_Lines(int x, int y_1, int y_2, int limit)
 
 // ------------------------------------------------------------------------------
 
-
+// draws button with a string at the given x,y and colour c
 void Gui::Draw_Button(int x,int y, int colour, char *string)
 {
-	// this function draws button with a string at the given x,y and colour c
-
 	Set_Color(colour,0);						// colour 0-15
 
 	int length = 0;

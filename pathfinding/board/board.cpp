@@ -1,38 +1,6 @@
 #include "board.h"
 
 
-
-Node::Node()
-{
-	i = 0;
-	f = 0;
-	g = 0;
-	h = 0;
-}
-
-// ------------------------------------------------------------------------------
-
-Node::Node(int i_)
-{
-	i = i_;
-	f = 0;
-	g = 0;
-	h = 0;
-}
-
-// ------------------------------------------------------------------------------
-
-Node::Node(int f_, int g_, int h_, int i_)
-{
-	i = i_;
-	f = f_;
-	g = g_;
-	h = h_;
-}
-
-// ------------------------------------------------------------------------------
-
-
 Board::Board()
 {
 	
@@ -96,19 +64,19 @@ void Board::loadMap(char* file_)
 					switch(buffer[i])
 					{
 					case ' ':
-						nodeMap[rows][columns].i = B_EMPTY;
+						nodeMap[rows][columns].init(B_EMPTY);
 						break;
 
 					case '#':
-						nodeMap[rows][columns].i = B_WALL;
+						nodeMap[rows][columns].init(B_WALL);
 						break;
 
 					case 'S':
-						nodeMap[rows][columns].i = B_START;
+						nodeMap[rows][columns].init(B_START);
 						break;
 
 					case 'T':
-						nodeMap[rows][columns].i = B_END;
+						nodeMap[rows][columns].init(B_END);
 						break;
 
 					default:
@@ -148,27 +116,27 @@ void Board::loadMap(MapType type_)
 			for(int x = 0; x < BOARD_X; x++)
 			{
 				if(x == 0 || y == 0 || x == BOARD_X - 1 || y == BOARD_Y - 1)
-					nodeMap[x][y].i = B_WALL;
+					nodeMap[x][y].init(B_WALL);
 				else
-					nodeMap[x][y].i = B_EMPTY;
+					nodeMap[x][y].init(B_EMPTY);
 			}
 		}
 
-		nodeMap[5][18].i = B_WALL;
-		nodeMap[5][17].i = B_WALL;
-		nodeMap[5][16].i = B_WALL;
-		nodeMap[5][15].i = B_WALL;
-		nodeMap[5][14].i = B_WALL;
-		nodeMap[5][13].i = B_WALL;
-		nodeMap[5][12].i = B_WALL;
-	
-		nodeMap[4][18].i = B_WALL;
-		nodeMap[4][17].i = B_WALL;
-		nodeMap[4][16].i = B_WALL;
-		nodeMap[4][15].i = B_WALL;
-		nodeMap[4][14].i = B_WALL;
-		nodeMap[4][13].i = B_WALL;
-		nodeMap[4][12].i = B_WALL;
+		nodeMap[5][18].init(B_WALL);
+		nodeMap[5][17].init(B_WALL);
+		nodeMap[5][16].init(B_WALL);
+		nodeMap[5][15].init(B_WALL);
+		nodeMap[5][14].init(B_WALL);
+		nodeMap[5][13].init(B_WALL);
+		nodeMap[5][12].init(B_WALL);
+					  
+		nodeMap[4][18].init(B_WALL);
+		nodeMap[4][17].init(B_WALL);
+		nodeMap[4][16].init(B_WALL);
+		nodeMap[4][15].init(B_WALL);
+		nodeMap[4][14].init(B_WALL);
+		nodeMap[4][13].init(B_WALL);
+		nodeMap[4][12].init(B_WALL);
 
 		break;
 
@@ -178,54 +146,54 @@ void Board::loadMap(MapType type_)
 			for(int x = 0; x < BOARD_X; x++)
 			{
 				if(x == 0 || y == 0 || x == BOARD_X - 1 || y == BOARD_Y - 1)
-					nodeMap[x][y].i = B_WALL;
+					nodeMap[x][y].init(B_WALL);
 				else
-					nodeMap[x][y].i = B_EMPTY;
+					nodeMap[x][y].init(B_EMPTY);
 			}
 		}
 
-		nodeMap[5][18].i = B_WALL;
-		nodeMap[5][17].i = B_WALL;
-		nodeMap[5][16].i = B_WALL;
-		nodeMap[5][15].i = B_WALL;
-		nodeMap[5][14].i = B_WALL;
-		nodeMap[5][13].i = B_WALL;
-		nodeMap[5][12].i = B_WALL;
+		nodeMap[5][18].init(B_WALL);
+		nodeMap[5][17].init(B_WALL);
+		nodeMap[5][16].init(B_WALL);
+		nodeMap[5][15].init(B_WALL);
+		nodeMap[5][14].init(B_WALL);
+		nodeMap[5][13].init(B_WALL);
+		nodeMap[5][12].init(B_WALL);
+					 
+		nodeMap[4][18].init(B_WALL);
+		nodeMap[4][17].init(B_WALL);
+		nodeMap[4][16].init(B_WALL);
+		nodeMap[4][15].init(B_WALL);
+		nodeMap[4][14].init(B_WALL);
+		nodeMap[4][13].init(B_WALL);
+		nodeMap[4][12].init(B_WALL);
 
-		nodeMap[4][18].i = B_WALL;
-		nodeMap[4][17].i = B_WALL;
-		nodeMap[4][16].i = B_WALL;
-		nodeMap[4][15].i = B_WALL;
-		nodeMap[4][14].i = B_WALL;
-		nodeMap[4][13].i = B_WALL;
-		nodeMap[4][12].i = B_WALL;
-
-		nodeMap[12][18].i = B_WALL;
-		nodeMap[12][17].i = B_WALL;
-		nodeMap[12][16].i = B_WALL;
-		nodeMap[12][15].i = B_WALL;
-		nodeMap[12][14].i = B_WALL;
-		nodeMap[12][13].i = B_WALL;
-		nodeMap[12][12].i = B_WALL;
-		nodeMap[12][11].i = B_WALL;
-		nodeMap[12][10].i = B_WALL;
+		nodeMap[12][18].init(B_WALL);
+		nodeMap[12][17].init(B_WALL);
+		nodeMap[12][16].init(B_WALL);
+		nodeMap[12][15].init(B_WALL);
+		nodeMap[12][14].init(B_WALL);
+		nodeMap[12][13].init(B_WALL);
+		nodeMap[12][12].init(B_WALL);
+		nodeMap[12][11].init(B_WALL);
+		nodeMap[12][10].init(B_WALL);
 					  
-		nodeMap[13][18].i = B_WALL;
-		nodeMap[13][17].i = B_WALL;
-		nodeMap[13][16].i = B_WALL;
-		nodeMap[13][15].i = B_WALL;
-		nodeMap[13][14].i = B_WALL;
-		nodeMap[13][13].i = B_WALL;
-		nodeMap[13][12].i = B_WALL;
-		nodeMap[13][11].i = B_WALL;
-		nodeMap[13][10].i = B_WALL;
-
-		nodeMap[14][10].i = B_WALL;
-		nodeMap[14][11].i = B_WALL;
-		nodeMap[15][10].i = B_WALL;
-		nodeMap[15][11].i = B_WALL;
-		nodeMap[16][10].i = B_WALL;
-		nodeMap[16][11].i = B_WALL;
+		nodeMap[13][18].init(B_WALL);
+		nodeMap[13][17].init(B_WALL);
+		nodeMap[13][16].init(B_WALL);
+		nodeMap[13][15].init(B_WALL);
+		nodeMap[13][14].init(B_WALL);
+		nodeMap[13][13].init(B_WALL);
+		nodeMap[13][12].init(B_WALL);
+		nodeMap[13][11].init(B_WALL);
+		nodeMap[13][10].init(B_WALL);
+					  
+		nodeMap[14][10].init(B_WALL);
+		nodeMap[14][11].init(B_WALL);
+		nodeMap[15][10].init(B_WALL);
+		nodeMap[15][11].init(B_WALL);
+		nodeMap[16][10].init(B_WALL);
+		nodeMap[16][11].init(B_WALL);
 		break;
 
 
@@ -241,49 +209,18 @@ void Board::loadMap(MapType type_)
 
 void Board::setI(int x, int y, int i_)
 {
-	nodeMap[x][y].i = i_;
+	nodeMap[x][y].setI(i_);
 	
-	switch(i_)
-	{
-	case B_EMPTY:
-		//ui->Draw_String(((x*2)+xPosition), (y+yPosition), )
-		//cout << "   ";
-		break;
-
-	case B_WALL:
-		ui->Draw_String( ( (x*3) + xPosition), ( (y*2) + yPosition), "# ");
-		//cout << "#  ";
-		break;
-
-	case B_START:
-		ui->Draw_String( ( (x*3) + xPosition), ( (y*2) + yPosition), "S ");
-		break;
-
-	case B_END:
-		ui->Draw_String(((x*3) + xPosition), ( (y*2) + yPosition), "T ");
-		break;
-
-	default:
-		ui->Set_Color( ( (i_%14) + 1), 0);					// set colour to red
-		ui->Draw_Integer(((x*3) + xPosition), ( (y*2) + yPosition), 1, i_);
-		ui->Set_Color(15,0);								// reset color to white on black
-		break;
-	}
-	
-	
-
+	drawIndex(x, y, i_);				// draws output
 }
 
 // ------------------------------------------------------------------------------
 
 void Board::setFGH(int x, int y, int g_, int h_)
 {
-	nodeMap[x][y].f = g_ + h_;
-	nodeMap[x][y].g = g_;
-	nodeMap[x][y].h = h_;
+	nodeMap[x][y].setFGH(g_, h_);
 
-	setI(x, y, g_);				// updates the i value and draws output
-	//nodeMap[x][y].i = g_;
+	drawIndex(x, y, g_);				// draws output
 }
 
 // ------------------------------------------------------------------------------
@@ -297,16 +234,14 @@ void Board::drawMap()
 	{
 		for(int x = 0; x < BOARD_X; x++)
 		{
-			switch(nodeMap[x][y].i)
+			switch(nodeMap[x][y].getI())
 			{
 				case B_EMPTY:
-					//ui->Draw_String(((x*2)+xPosition), (y+yPosition), )
-					//cout << "   ";
+					//ui->Draw_String(((x*2)+xPosition), (y+yPosition), "   ");
 					break;
 
 				case B_WALL:
 					ui->Draw_String( ( (x*3) + xPosition), ( (y*2) + yPosition), "#  ");
-					//cout << "#  ";
 					break;
 
 				case B_START:
@@ -318,24 +253,11 @@ void Board::drawMap()
 					break;
 
 				default:
-					/*
-					if(nodeMap[x][y].i < 10)
-						cout << nodeMap[x][y].i << "  ";
-					else
-						cout << nodeMap[x][y].i << " ";
-						*/
 					break;
 			}
 		}
 	}
-	/*
-	while(true)
-	{
 
-
-	}
-
-	*/
 }
 
 // ------------------------------------------------------------------------------
@@ -347,8 +269,8 @@ void Board::clearBoard()
 	{
 		for(int x = 0; x < BOARD_X; x++)
 		{
-			if(nodeMap[x][y].i != B_WALL && nodeMap[x][y].i != B_START && nodeMap[x][y].i != B_END)
-				nodeMap[x][y].i = B_EMPTY;
+			if(nodeMap[x][y].getI() != B_WALL && nodeMap[x][y].getI() != B_START && nodeMap[x][y].getI() != B_END)
+				nodeMap[x][y].setI(B_EMPTY);
 		}
 	}
 
@@ -365,23 +287,55 @@ Node Board::getNode(int x, int y)
 // ------------------------------------------------------------------------------
 
 
-
-
-
-
-/*
-// LEE --------------------------------------
-
-void cBoard::clearPathing()
+int Board::getI(int x, int y)
 {
-	for(int y = 0; y < BOARD_Y; y++)
-	{
-		for(int x = 0; x < BOARD_X; x++)
-		{
-			if(board[x][y] != B_WALL && board[x][y] != B_START && board[x][y] != B_END)
-				board[x][y] = B_EMPTY;
-		}
-	}
+	return nodeMap[x][y].getI();
 }
 
-*/
+// ------------------------------------------------------------------------------
+
+
+int Board::getF(int x, int y)
+{
+	return nodeMap[x][y].getF();
+}
+
+// ------------------------------------------------------------------------------
+
+
+int Board::getH(int x, int y)
+{
+	return nodeMap[x][y].getH();
+}
+
+// ------------------------------------------------------------------------------
+
+
+void Board::drawIndex(int x, int y, int i_)
+{
+	switch(i_)
+	{
+	case B_EMPTY:
+		//ui->Draw_String(((x*2)+xPosition), (y+yPosition), "   ");
+		break;
+
+	case B_WALL:
+		ui->Draw_String( ( (x*3) + xPosition), ( (y*2) + yPosition), "# ");
+		break;
+
+	case B_START:
+		ui->Draw_String( ( (x*3) + xPosition), ( (y*2) + yPosition), "S ");
+		break;
+
+	case B_END:
+		ui->Draw_String(((x*3) + xPosition), ( (y*2) + yPosition), "T ");
+		break;
+
+	default:
+		ui->Set_Color( ( (i_%14) + 1), 0);					// set colour to red
+		ui->Draw_Integer(((x*3) + xPosition), ( (y*2) + yPosition), 1, i_);
+		ui->Set_Color(15,0);								// reset color to white on black
+		break;
+	}
+
+}

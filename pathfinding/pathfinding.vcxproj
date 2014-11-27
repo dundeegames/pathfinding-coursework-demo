@@ -76,6 +76,7 @@
   <ItemGroup>
     <ClCompile Include="astar\astar.cpp" />
     <ClCompile Include="board\board.cpp" />
+    <ClCompile Include="board\node.cpp" />
     <ClCompile Include="gpsa_application.cpp" />
     <ClCompile Include="lee\lee.cpp" />
     <ClCompile Include="main.cpp" />
@@ -84,6 +85,7 @@
   <ItemGroup>
     <ClInclude Include="astar\astar.h" />
     <ClInclude Include="board\board.h" />
+    <ClInclude Include="board\node.h" />
     <ClInclude Include="gpsa_application.h" />
     <ClInclude Include="lee\lee.h" />
     <ClInclude Include="ui\gui.h" />
