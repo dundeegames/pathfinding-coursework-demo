@@ -20,17 +20,17 @@ struct Vector
 
 	Vector(){};
 
-	Vector(int a, int b)
+	Vector(int x_, int y_)
 	{
-		x = a;
-		y = b;
+		x = x_;
+		y = y_;
 	}
 
-	Vector(int a, int b, int c)
+	Vector(int x_, int y_, int f_)
 	{
-		x = a;
-		y = b;
-		f = c;
+		x = x_;
+		y = y_;
+		f = f_;
 	}
 
 	

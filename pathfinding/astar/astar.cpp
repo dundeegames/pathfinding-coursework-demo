@@ -70,11 +70,11 @@ void Astar::updateAdjSquares(Vector point, Vector goal)
 	
 	tempNode = map->getNode((point.x - 1), point.y);
 
-	// g is the distance of the current node plus one
-	g = map->getI(point.x, point.y) + 1;
-
 	if(tempNode.getI() == B_EMPTY)
 	{
+		// g is the distance of the current node plus one
+		g = map->getI(point.x, point.y) + 1;
+
 		// h is the Manhattan distance from the West adjacent node to target node
 		h = manhattanDistance(Vector((point.x - 1), point.y), goal);
 
@@ -94,7 +94,7 @@ void Astar::updateAdjSquares(Vector point, Vector goal)
 	if(tempNode.getI() == B_EMPTY)
 	{
 		// g is the distance of the current node plus one
-		//g= map->getNode(point.x, point.y).i + 1;
+		g= map->getI(point.x, point.y) + 1;
 
 		// h is the Manhattan distance from the West adjacent node to target node
 		h = manhattanDistance(Vector(point.x, (point.y - 1)), goal);
@@ -109,12 +109,12 @@ void Astar::updateAdjSquares(Vector point, Vector goal)
 	}	
 
 	// 3 update the distance number of the East adjacent node
-	tempNode = map->getNode((point.x - 1), point.y);
+	tempNode = map->getNode((point.x + 1), point.y);
 	
 	if(tempNode.getI() == B_EMPTY)
 	{
 		// g is the distance of the current node plus one
-		//g= map->getI(point.x, point.y) + 1;
+		g= map->getI(point.x, point.y) + 1;
 
 		// h is the Manhattan distance from the West adjacent node to target node
 		h = manhattanDistance(Vector((point.x + 1), point.y), goal);
@@ -135,7 +135,7 @@ void Astar::updateAdjSquares(Vector point, Vector goal)
 	if(tempNode.getI() == B_EMPTY)
 	{
 		// g is the distance of the current node plus one
-		//g= map->getNode(point.x, point.y).i + 1;
+		g= map->getI(point.x, point.y) + 1;
 
 		// h is the Manhattan distance from the West adjacent node to target node
 		h = manhattanDistance(Vector(point.x, (point.y + 1)), goal);

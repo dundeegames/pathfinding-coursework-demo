@@ -30,7 +30,7 @@ private:
 	State state;			// State enum is part of gui.h
 
 	Board* board;
-	Astar astar;
+	Astar* astar;
 	Lee* lee;
 
 	void Manage_Input();

@@ -60,8 +60,10 @@ void GPSAapplication::run()
 
 			Sleep(1000);
 
-			board->loadMap(MAP_L);		// clear pathing
-			board->drawMap();
+			//board->loadMap(MAP_L);		// clear pathing
+			//board->drawMap();
+
+			board->clearBoard();
 
 			lee->drawPath();
 
@@ -78,10 +80,12 @@ void GPSAapplication::run()
 			board->loadMap(MAP_A);
 			board->drawMap();
 
-			astar.generatePath(Vector(2, 16), Vector(15, 10), board);
+			astar = new Astar;
+			astar->generatePath(Vector(2, 16), Vector(15, 10), board);
 
 			gui.Press_Key(22,46,"press any key to return to main menu..");
 
+			delete astar;
 			delete board;
 
 			state = MAIN_MENU;
