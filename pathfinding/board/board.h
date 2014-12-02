@@ -42,6 +42,7 @@ public:
 	int getF(int x, int y);
 	int getH(int x, int y);
 
+	void updateData(int nodes_, int size_);
 	void drawMap();
 	void drawIndex(int x, int y, int i_);
 	void clearBoard();
@@ -50,6 +51,12 @@ public:
 
 
 private:
+	int sizeNcur;	// Current and Max size of wset in Numer of nodes
+	int sizeNmax;
+	int sizeBcur;	// Current and Max size of wset in Bytes
+	int sizeBmax;
+
+	void drawData();	// displays values of cur and max wset
 
 	// Lee --------------------
 	Node nodeMap[BOARD_X][BOARD_Y];

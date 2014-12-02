@@ -1,5 +1,6 @@
 #include "lee.h"
 
+#include <iostream>
 
 Lee::Lee()
 {
@@ -33,6 +34,8 @@ void Lee::generatePath(point start_, point end_,  Board* board_)
 
 void Lee::generateDistances()
 {
+	map->updateData(wset.size(), sizeof(wset));
+	
 	// add start to the working set
 	wset.push_front(point(start.x, start.y, start.i));
 
@@ -41,7 +44,7 @@ void Lee::generateDistances()
 	// loop until current node is adjacent to the end
 	while(!wset.empty() && !checkAdjIndex(wset.front(), B_END))
 	{
-
+		
 		updateAdjSquares(wset.front());
 
 		if(wset.front().i > temp)
@@ -52,6 +55,9 @@ void Lee::generateDistances()
 		}
 
 		wset.pop_front();
+
+		map->updateData(wset.size(), sizeof(wset));
+
 	}
 
 }

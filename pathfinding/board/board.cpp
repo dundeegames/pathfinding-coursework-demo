@@ -22,6 +22,11 @@ void Board::init(Gui* ui_, int xpos_, int ypos_)
 	ui = ui_;
 	xPosition = xpos_;
 	yPosition = ypos_;
+
+	sizeNcur = 0;
+	sizeNmax = 0;
+	sizeBcur = 0;
+	sizeBmax = 0;
 }
 
 // ------------------------------------------------------------------------------
@@ -258,6 +263,13 @@ void Board::drawMap()
 		}
 	}
 
+	ui->Set_Color(10,0);
+	ui->Draw_String( xPosition, (yPosition - 3), "  SIZE OF");
+	ui->Draw_String( xPosition, (yPosition - 2), "WORKING SET");
+	ui->Set_Color(15,0);         // reset color back to white
+
+	drawData();
+
 }
 
 // ------------------------------------------------------------------------------
@@ -340,5 +352,49 @@ void Board::drawIndex(int x, int y, int i_)
 		ui->Set_Color(15,0);								// reset color to white on black
 		break;
 	}
+
+}
+
+// ------------------------------------------------------------------------------
+
+
+void Board::updateData(int nodes_, int size_)
+{
+	sizeNcur = nodes_;
+
+	if(sizeNcur > sizeNmax)
+	{
+		sizeNmax = sizeNcur;
+	}
+	
+	sizeBcur = size_;
+
+	if(sizeBcur > sizeBmax)
+	{
+		sizeBmax = sizeBcur;
+	}
+
+	drawData();
+
+}
+
+// ------------------------------------------------------------------------------
+
+void Board::drawData()
+{
+	// clear old values
+	ui->Set_Color(14,0);
+	ui->Draw_String( (xPosition + 20), (yPosition - 3), "Current:         Nodes           Bytes");
+	ui->Set_Color(12,0);
+	ui->Draw_String( (xPosition + 20), (yPosition - 2), "Maximum:         Nodes           Bytes");
+
+	ui->Set_Color(15,0);		// reset color to white
+
+	// draw new ones
+	ui->Draw_Integer((xPosition + 32), (yPosition - 3), 3, sizeNcur);
+	ui->Draw_Integer((xPosition + 32), (yPosition - 2), 3, sizeNmax);
+
+	ui->Draw_Integer((xPosition + 48), (yPosition - 3), 3, sizeBcur);
+	ui->Draw_Integer((xPosition + 48), (yPosition - 2), 3, sizeBmax);
 
 }

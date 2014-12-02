@@ -30,6 +30,7 @@ void Astar::generateDistances(Vector start, Vector end)
 	// set start/end to the board
 	map->setI(start.x, start.y, B_START);
 	map->setI(end.x, end.y, B_END);
+	map->updateData(wset.size(), sizeof(wset));
 
 	// update squares adjacent to the start position
 	updateAdjSquares(start, end);
@@ -42,6 +43,9 @@ void Astar::generateDistances(Vector start, Vector end)
 		
 		updateAdjSquares(curr_point, end);
 		Sleep(200);
+
+		map->updateData(wset.size(), sizeof(wset));
+
 	}
 }
 

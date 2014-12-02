@@ -50,7 +50,7 @@ void GPSAapplication::run()
 
 		case LEE:
 			board = new Board();
-			board->init(&gui, 11, 5);
+			board->init(&gui, 11, 6);
 			board->loadMap(MAP_L);
 			board->drawMap();
 
@@ -67,7 +67,7 @@ void GPSAapplication::run()
 
 			lee->drawPath();
 
-			gui.Press_Key(22,46,"press any key to return to main menu..");
+			gui.Press_Key(22,47,"press any key to return to main menu..");
 
 			delete lee;
 			delete board;
@@ -76,14 +76,14 @@ void GPSAapplication::run()
 
 		case ASTAR:
 			board = new Board();
-			board->init(&gui, 11, 5);
+			board->init(&gui, 11, 6);
 			board->loadMap(MAP_A);
 			board->drawMap();
 
 			astar = new Astar;
-			astar->generatePath(Vector(2, 16), Vector(15, 10), board);
+			astar->generatePath(Vector(2, 2), Vector(15, 15), board);
 
-			gui.Press_Key(22,46,"press any key to return to main menu..");
+			gui.Press_Key(22,47,"press any key to return to main menu..");
 
 			delete astar;
 			delete board;
