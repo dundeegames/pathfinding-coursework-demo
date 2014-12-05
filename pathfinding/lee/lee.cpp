@@ -39,6 +39,7 @@ void Lee::generateDistances()
 	// add start to the working set
 	wset.push_front(point(start.x, start.y, start.i));
 
+
 	int temp = 0; // for the simulation board draw to look nicer
 
 	// loop until current node is adjacent to the end

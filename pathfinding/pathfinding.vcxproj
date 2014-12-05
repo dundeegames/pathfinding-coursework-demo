@@ -81,6 +81,7 @@
     <ClCompile Include="hashing\hashing.cpp" />
     <ClCompile Include="lee\lee.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="test\profiler.cpp" />
     <ClCompile Include="ui\gui.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -90,6 +91,7 @@
     <ClInclude Include="gpsa_application.h" />
     <ClInclude Include="hashing\hashing.h" />
     <ClInclude Include="lee\lee.h" />
+    <ClInclude Include="test\profiler.h" />
     <ClInclude Include="ui\gui.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

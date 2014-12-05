@@ -28,6 +28,9 @@
     <Filter Include="board">
       <UniqueIdentifier>{9147967a-4523-41e0-bb23-8991ae337789}</UniqueIdentifier>
     </Filter>
+    <Filter Include="test">
+      <UniqueIdentifier>{a02051c8-5d5d-4e07-92ee-6034beb4bb01}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -54,6 +57,9 @@
     <ClCompile Include="hashing\hashing.cpp">
       <Filter>hashing</Filter>
     </ClCompile>
+    <ClCompile Include="test\profiler.cpp">
+      <Filter>test</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ui\gui.h">
@@ -76,6 +82,9 @@
     </ClInclude>
     <ClInclude Include="hashing\hashing.h">
       <Filter>hashing</Filter>
+    </ClInclude>
+    <ClInclude Include="test\profiler.h">
+      <Filter>test</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
