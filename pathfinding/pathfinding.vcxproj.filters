@@ -51,6 +51,9 @@
     <ClCompile Include="board\node.cpp">
       <Filter>board</Filter>
     </ClCompile>
+    <ClCompile Include="hashing\hashing.cpp">
+      <Filter>hashing</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ui\gui.h">
@@ -70,6 +73,9 @@
     </ClInclude>
     <ClInclude Include="board\node.h">
       <Filter>board</Filter>
+    </ClInclude>
+    <ClInclude Include="hashing\hashing.h">
+      <Filter>hashing</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
