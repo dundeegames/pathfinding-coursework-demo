@@ -4,9 +4,13 @@
 ///*****           Profiler class - for memory and CPU analysis            *****
 ///*****                      by Jiri Klic, Dec 2014                       *****
 ///*****                                                                   *****
-///*****   Timing functions based on CTimer class, available from          *****
-///*****   http://xoax.net/cpp/crs/misc/lessons/HighResTimer/              *****
-///*****   [2009]Xoax.Accessed[02.Dec.2014]                                *****
+///*****      Timing functions based on CTimer class, available from       *****
+///*****      http://xoax.net/cpp/crs/misc/lessons/HighResTimer/           *****
+///*****      [2009]Xoax. Accessed[02.Dec.2014]                            *****
+///*****                                                                   *****
+///*****      Memory analysis based on code from David Robert Nadeau,      *****
+///*****      avalilable from  http://NadeauSoftware.com/                  *****
+///*****      Accessed[05.Dec.2014]                                        *****
 ///*****                                                                   *****
 ///*****************************************************************************
 ///*****************************************************************************
@@ -20,6 +24,7 @@
 /// INCLUDES ///////////////////////////////////////////////////////////////////
 #include <iostream>
 #include <windows.h>
+#include <psapi.h>
 
 
 
@@ -35,7 +40,7 @@ public:
 	Profiler();
 	~Profiler();
 
-	// timer
+	// timing
 	void Start();
 	void End();
 	double GetTimeInSeconds();
@@ -44,16 +49,36 @@ public:
 	double GetTimeInNanoseconds();
 
 
-	// memory
+	// memory analysis
+
+	/**
+	 * Returns the size of physical memory (RAM) in bytes.
+	 */
+	int getMemorySize();
+
+	/**
+	 * Returns the peak (maximum so far) resident set size (physical
+	 * memory use) measured in bytes, or zero if the value cannot be
+	 * determined on this OS.
+	 */
+	int getPeakRSS();
+
+	/**
+	 * Returns the current resident set size (physical memory use) measured
+	 * in bytes, or zero if the value cannot be determined on this OS.
+	 */
+	int getCurrentRSS();
+
+
 
 
 private:
-	// timer	
+	// timing	
 	LARGE_INTEGER mqStart;
 	LARGE_INTEGER mqEnd;
 	LARGE_INTEGER mqFreq;
 
-	// memory
+	// memory analysis
 
 
 
@@ -64,9 +89,9 @@ private:
 
 
 
-
-/// USE EXAMPLE ////////////////////////////////////////////////////////////////
 /**
+/// USE EXAMPLE ////////////////////////////////////////////////////////////////
+
 void Bubblesort(int iaArray[], int iLength)
 {
 	for (int iIndex1 = 0; iIndex1 < iLength; ++iIndex1) {
@@ -101,6 +126,12 @@ int main() {
 	cout << prof.GetTimeInMilliseconds() << " milliseconds" << endl;
 	cout << prof.GetTimeInMicroseconds() << " microseconds" << endl;
 	cout << prof.GetTimeInNanoseconds() << " nanoseconds" << endl;
+
+	//Simply call either function to get the current and peak resident set size
+	//in bytes, of the current process:
+	int currentSize = prof.getCurrentRSS();
+	int peakSize    = prof.getPeakRSS();
+
 }
 */
 

@@ -19,16 +19,18 @@ Hashing::~Hashing()
 
 void Hashing::run()
 {
-	position temp;		// used to initialise data structures
+	Position temp;		// used to initialise data structures
 
-	//  Set up initial position 
-	for(int i=0; i < 3; i++){
-		for(int j=0; j < 3; j++){
+	//  Set up initial Position 
+	for(int i=0; i < BD_SIZE; i++)
+	{
+		for(int j=0; j < BD_SIZE; j++)
+		{
 			temp.bd[i][j] = 0;
 		}
 	}
 
-	for(int i=0; i < 20000; i++)
+	for(int i=0; i < HASH_MAX; i++)
 	{
 		hashtable[i]= false;
 	}
@@ -40,7 +42,8 @@ void Hashing::run()
 	add_to_wset(temp);
 	add_to_dlist(temp);
 
-	while(wset_not_empty()) {
+	while(wset_not_empty())
+	{
 		single_step();
 	}
 	print_status();
@@ -100,7 +103,7 @@ void Hashing::insert(int v, int num, Node* h)
 
 	// Could guard against memory failure here, trap temp == NULL
 	temp->dat = v;				// initialise new Node
-	temp->Node_number = num;		// key on board value
+	temp->Node_number = num;	// key on board value
 
 
 	//  Now search to find new right hand neighbour Node
@@ -128,13 +131,13 @@ void Hashing::insert(int v, int num, Node* h)
 
 // -----------------------------------------------------------------------------
 
-int Hashing::boardval(int b[3][3])
+int Hashing::boardval(int b[BD_SIZE][BD_SIZE])
 {
 	int total = 0;					// accumulate ternary number
 
-	for(int i=0; i<3; i++)
+	for(int i=0; i < BD_SIZE; i++)
 	{
-		for(int j=0; j<3; j++)
+		for(int j=0; j < BD_SIZE; j++)
 		{
 			total = 3*total + b[i][j];
 		}
@@ -147,23 +150,19 @@ int Hashing::boardval(int b[3][3])
 
 // -----------------------------------------------------------------------------
 
-int Hashing::min_boardval(position p)
+int Hashing::min_boardval(Position p)
 {
-	int min = 20000;					// minimum so far, initialised high
+	int min = HASH_MAX;				// minimum so far, initialised high
 	int temp;						// temporary store
 
-	//int boardval(int b[3][3]);
-	//void rotation(int b[3][3]);
-	//void reflection(int b[3][3]);
-
 	// First the four rotations
-	for(int k=0; k<4; k++)
+	for(int k=0; k < 4; k++)
 	{
 		rotation(p.bd);
 		
 		temp = boardval(p.bd);
 
-		if (temp<min)
+		if (temp < min)
 		{
 			min = temp;
 		}
@@ -172,12 +171,12 @@ int Hashing::min_boardval(position p)
 	// Now the mirror images
 	reflection(p.bd);
 
-	for(int k=0; k<4; k++)
+	for(int k=0; k < 4; k++)
 	{
 		rotation(p.bd);
 		temp = boardval(p.bd);
 
-		if (temp<min)
+		if (temp < min)
 		{
 			min = temp;
 		}
@@ -193,20 +192,20 @@ int Hashing::min_boardval(position p)
 
 void Hashing::single_step()
 {
-	position temp, possible;  
+	Position temp, possible;  
 
-	//	take position from wset
+	//	take Position from wset
 	temp = get_from_wset();
 
 	if(temp.game != undecided)		//  Game over already
 	{
-		return;					//  skip the rest
+		return;						//  skip the rest
 	}
 
-	//	generate nine new positions.  
-	//	Could do this in one step (setting some to illegal).
-	//	I plan to process them in full one after the other.
-
+	/**	generate nine new Positions.  
+	*	Could do this in one step (setting some to illegal).
+	*	I plan to process them in full one after the other.
+	*/
 	temp.npieces++;
 	int xo = ((temp.npieces%2)==1)? 1 : 2;
 
@@ -232,10 +231,11 @@ void Hashing::single_step()
 					//	add all 8 equivalents to dlist. Yes. "if not already present" - No
 
 
-					/*	This is really crude, some positions will be added multiple times
-					Could either create "add_if_new()" rather than use add_to_dlist()	
-					or could modify is_duplicate() to spot symmetry copies.	
-					For now I'll just leave this - it is simple at least!			*/
+					/**	This is really crude, some Positions will be added multiple times
+					*	Could either create "add_if_new()" rather than use add_to_dlist()	
+					*	or could modify is_duplicate() to spot symmetry copies.	
+					*	For now I'll just leave this - it is simple at least!
+					*/
 
 					// First the four rotations
 					for(int k=0; k < 4; k++)
@@ -247,7 +247,7 @@ void Hashing::single_step()
 					// Now the mirror images
 					reflection(possible.bd);
 
-					for(int k=0; k<4; k++)
+					for(int k=0; k < 4; k++)
 					{
 						rotation(possible.bd);
 						add_to_dlist(possible);
@@ -266,7 +266,7 @@ void Hashing::single_step()
 
 // -----------------------------------------------------------------------------
 
-int Hashing::search_dlist(position p)
+int Hashing::search_dlist(Position p)
 {
 	/*int i=0;
 
@@ -297,16 +297,14 @@ int Hashing::search_dlist(position p)
 
 // -----------------------------------------------------------------------------
 
-GameStatus Hashing::is_win_or_draw(position p, int xo)
+GameStatus Hashing::is_win_or_draw(Position p, int xo)
 {
-	//	Checking after a move can only lead to 
-	//		a win, return win if xo == 1, loss if xo == 2
-	//		a draw (if the board is now full, or
-	//		(still) undecided).
-
-	//	There are 8 columns / rows / diagonals patterns leading to
-	//	a decisive result:
-
+	/**	Checking after a move can only lead to 
+	*	a win, return win if xo == 1, loss if xo == 2
+	*	a draw (if the board is now full, or (still) undecided).
+	*	There are 8 columns / rows / diagonals patterns leading to
+	*	a decisive result:
+	*/
 	if( (xo==p.bd[0][0]) && (xo==p.bd[0][1]) && (xo==p.bd[0][2]) ||
 		(xo==p.bd[1][0]) && (xo==p.bd[1][1]) && (xo==p.bd[1][2]) ||
 		(xo==p.bd[2][0]) && (xo==p.bd[2][1]) && (xo==p.bd[2][2]) ||
@@ -370,7 +368,7 @@ void Hashing::swap(int &a, int &b)
 
 void Hashing::rotation(int b[3][3])
 {
-	//	Rotate 90 degrees clockwise
+	//!< Rotate 90 degrees clockwise
 
 	int temp = b[0][0];
 
@@ -391,7 +389,7 @@ void Hashing::rotation(int b[3][3])
 
 void Hashing::reflection(int b[3][3])
 {
-	//	Reflect through vertical, middle column
+	//!< Reflect through vertical, middle column
 
 	for(int i=0; i<3; i++)
 	{
@@ -412,7 +410,7 @@ void Hashing::print_status()
 
 // -----------------------------------------------------------------------------
 
-void Hashing::add_to_wset(position p)
+void Hashing::add_to_wset(Position p)
 {
 	printp(p);
 	wset[rear++] = p;
@@ -429,7 +427,7 @@ int Hashing::wset_not_empty()
 
 // -----------------------------------------------------------------------------
 
-position Hashing::get_from_wset()
+Position Hashing::get_from_wset()
 {
 	return wset[head++];
 }
@@ -437,9 +435,9 @@ position Hashing::get_from_wset()
 
 // -----------------------------------------------------------------------------
 
-void Hashing::add_to_dlist(position p)
+void Hashing::add_to_dlist(Position p)
 {
-	//dlist[dlist1++] = p;
+	//!< dlist[dlist1++] = p;
 	int hashvalue = min_boardval(p);
 	hashtable[hashvalue] = true;
 }
@@ -447,7 +445,7 @@ void Hashing::add_to_dlist(position p)
 
 // -----------------------------------------------------------------------------
 
-void Hashing::printp(position p)
+void Hashing::printp(Position p)
 {
     for (int i = 2; i >= 0; i--)
 	{
