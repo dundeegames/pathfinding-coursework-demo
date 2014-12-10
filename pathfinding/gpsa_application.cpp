@@ -60,7 +60,7 @@ void GPSAapplication::run()
 
 			lee = new Lee();
 
-			lee->generatePath(point(2, 5, B_START), point(15, 17, B_END), board);
+			lee->generatePath(point(2, 5, B_START), point(15, 17, B_END), board, 100);
 
 			Sleep(1000);
 
@@ -85,7 +85,7 @@ void GPSAapplication::run()
 			board->drawMap();
 
 			astar = new Astar;
-			astar->generatePath(Vector(2, 2), Vector(15, 15), board);
+			astar->generatePath(Vector(2, 2), Vector(15, 15), board, 100);
 
 			gui.Press_Key(22,47,"press any key to return to main menu..");
 

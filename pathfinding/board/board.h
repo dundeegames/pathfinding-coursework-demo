@@ -42,7 +42,7 @@ public:
 	int getF(int x, int y);
 	int getH(int x, int y);
 
-	void updateData(int nodes_, int size_);
+	void updateData(int nodes_, int mcur_, int mmax_);
 	void drawMap();
 	void drawIndex(int x, int y, int i_);
 	void clearBoard();

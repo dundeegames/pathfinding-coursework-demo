@@ -263,10 +263,15 @@ void Board::drawMap()
 		}
 	}
 
-	ui->Set_Color(10,0);
-	ui->Draw_String( xPosition, (yPosition - 3), "  SIZE OF");
-	ui->Draw_String( xPosition, (yPosition - 2), "WORKING SET");
+	ui->Set_Color(14,0);
+	ui->Draw_String( xPosition, (yPosition - 3), "Size of wset(Current/Max):              /             Nodes");
+	ui->Set_Color(12,0);
+	ui->Draw_String( xPosition, (yPosition - 2), "Memory usage(Current/Max):              /             Bytes");
 	ui->Set_Color(15,0);         // reset color back to white
+
+
+
+
 
 	drawData();
 
@@ -358,7 +363,7 @@ void Board::drawIndex(int x, int y, int i_)
 // ------------------------------------------------------------------------------
 
 
-void Board::updateData(int nodes_, int size_)
+void Board::updateData(int nodes_, int mcur_, int mmax_)
 {
 	sizeNcur = nodes_;
 
@@ -367,12 +372,8 @@ void Board::updateData(int nodes_, int size_)
 		sizeNmax = sizeNcur;
 	}
 	
-	sizeBcur = size_;
-
-	if(sizeBcur > sizeBmax)
-	{
-		sizeBmax = sizeBcur;
-	}
+	sizeBcur = mcur_;
+	sizeBmax = mmax_;
 
 	drawData();
 
@@ -382,19 +383,11 @@ void Board::updateData(int nodes_, int size_)
 
 void Board::drawData()
 {
-	// clear old values
-	ui->Set_Color(14,0);
-	ui->Draw_String( (xPosition + 20), (yPosition - 3), "Current:         Nodes           Bytes");
-	ui->Set_Color(12,0);
-	ui->Draw_String( (xPosition + 20), (yPosition - 2), "Maximum:         Nodes           Bytes");
-
-	ui->Set_Color(15,0);		// reset color to white
-
 	// draw new ones
-	ui->Draw_Integer((xPosition + 32), (yPosition - 3), 3, sizeNcur);
-	ui->Draw_Integer((xPosition + 32), (yPosition - 2), 3, sizeNmax);
+	ui->Draw_Integer((xPosition + 35), (yPosition - 3), 3, sizeNcur);
+	ui->Draw_Integer((xPosition + 49), (yPosition - 3), 3, sizeNmax);
 
-	ui->Draw_Integer((xPosition + 48), (yPosition - 3), 3, sizeBcur);
-	ui->Draw_Integer((xPosition + 48), (yPosition - 2), 3, sizeBmax);
+	ui->Draw_Integer((xPosition + 28), (yPosition - 2), 10, sizeBcur);
+	ui->Draw_Integer((xPosition + 42), (yPosition - 2), 10, sizeBmax);
 
 }

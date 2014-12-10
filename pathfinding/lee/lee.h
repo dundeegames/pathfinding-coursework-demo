@@ -15,6 +15,7 @@
 #include <deque>
 
 #include "../board/board.h"
+#include "../test/profiler.h"
 
 
 #define MAX_I 50
@@ -39,10 +40,12 @@ class Lee
 {
 public:
 	Lee();
-	void generatePath(point start_, point end_,  Board* board_);
+	void generatePath(point start_, point end_,  Board* board_, int timer_);
 	void drawPath();
 
 private:
+	Profiler profiler;
+	int delay;
 
 	std::stack<point> path_final;
 	std::deque<point> wset;

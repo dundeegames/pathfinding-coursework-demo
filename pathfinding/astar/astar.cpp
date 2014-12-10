@@ -2,10 +2,10 @@
 
 
 
-void Astar::generatePath(Vector start, Vector end, Board* board_)
+void Astar::generatePath(Vector start, Vector end, Board* board_, int timer_)
 {
 	map = board_;
-
+	delay = timer_;
 
 	// generate distances to find route to the end
 	generateDistances(start, end);
@@ -13,12 +13,13 @@ void Astar::generatePath(Vector start, Vector end, Board* board_)
 	// generate the final path stack
 	traceBack(start, end);
 
-	Sleep(1000);
+	Sleep(10*delay);
 	map->clearBoard();
-	//map->draw();
 
 	// display the final path
-	displayPath();	
+	displayPath();
+
+	map->updateData(wset.size(), profiler.getCurrentRSS(), profiler.getPeakRSS());
 }
 
 // ------------------------------------------------------------------------------
@@ -30,7 +31,7 @@ void Astar::generateDistances(Vector start, Vector end)
 	// set start/end to the board
 	map->setI(start.x, start.y, B_START);
 	map->setI(end.x, end.y, B_END);
-	map->updateData(wset.size(), sizeof(wset));
+	map->updateData(wset.size(), profiler.getCurrentRSS(), profiler.getPeakRSS());
 
 	// update squares adjacent to the start position
 	updateAdjSquares(start, end);
@@ -42,9 +43,9 @@ void Astar::generateDistances(Vector start, Vector end)
 		wset.pop();
 		
 		updateAdjSquares(curr_point, end);
-		Sleep(200);
+		Sleep(delay);
 
-		map->updateData(wset.size(), sizeof(wset));
+		map->updateData(wset.size(), profiler.getCurrentRSS(), profiler.getPeakRSS());
 
 	}
 }
@@ -266,6 +267,8 @@ void Astar::traceBack(Vector start, Vector end)
 		// push the adjacent point with lowest distance to the path stack using the function of "path_final.push()"
 		path_final.push(currentPoint);
 
+		map->updateData(wset.size(), profiler.getCurrentRSS(), profiler.getPeakRSS());
+
 	}while(currentIndex > B_START);
 	
 }
@@ -280,8 +283,9 @@ void Astar::displayPath()
 		map->setI(path_final.top().x, path_final.top().y, path_final.size());
 		path_final.pop();
 
-		//map->draw();
-		Sleep(200);
+		map->updateData(wset.size(), profiler.getCurrentRSS(), profiler.getPeakRSS());
+
+		Sleep(delay);
 	}
 
 }

@@ -80,8 +80,7 @@ int Profiler::getPeakRSS()
 {
 	PROCESS_MEMORY_COUNTERS info;
 
-	//! error LNK2001: unresolved external symbol _GetProcessMemoryInfo@12
-	//GetProcessMemoryInfo( GetCurrentProcess(), &info, sizeof(info) );
+	GetProcessMemoryInfo( GetCurrentProcess(), &info, sizeof(info) );
 
 	return (int)info.PeakWorkingSetSize;
 }
@@ -93,8 +92,7 @@ int Profiler::getCurrentRSS()
 {
 	PROCESS_MEMORY_COUNTERS info;
 
-	//! error LNK2001: unresolved external symbol _GetProcessMemoryInfo@12
-	//GetProcessMemoryInfo( GetCurrentProcess(), &info, sizeof(info) );
+	GetProcessMemoryInfo( GetCurrentProcess(), &info, sizeof(info) );
 
 	return (int)info.WorkingSetSize;
 }

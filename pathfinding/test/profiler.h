@@ -24,7 +24,10 @@
 #include <iostream>
 #include <windows.h>
 #include <psapi.h>
-
+/*!
+* to use <psapi.h> you have to add psapi.lib to linker:
+* Project -> Properties -> Linker -> Input -> Additional Dependencies*
+*/
 
 
 

@@ -10,23 +10,25 @@ Lee::Lee()
 // ------------------------------------------------------------------------------
 
 
-void Lee::generatePath(point start_, point end_,  Board* board_)
+void Lee::generatePath(point start_, point end_,  Board* board_, int timer_)
 {
 	start = start_;
 	end = end_;
 	map = board_;
+	delay = timer_;
 
 	map->setI(start.x, start.y, start.i);
 	map->setI(end.x, end.y, end.i);
 
-	//map->draw();
-	Sleep(1000);
+	Sleep(10*delay);
 
 	// generate distances
 	generateDistances();
 
 	// work back from T, populate pathing stack to generate path S -> T
 	traceBack();
+
+	map->updateData(wset.size(), profiler.getCurrentRSS(), profiler.getPeakRSS());
 }
 
 // ------------------------------------------------------------------------------
@@ -34,7 +36,7 @@ void Lee::generatePath(point start_, point end_,  Board* board_)
 
 void Lee::generateDistances()
 {
-	map->updateData(wset.size(), sizeof(wset));
+	map->updateData(wset.size(), profiler.getCurrentRSS(), profiler.getPeakRSS());
 	
 	// add start to the working set
 	wset.push_front(point(start.x, start.y, start.i));
@@ -50,14 +52,14 @@ void Lee::generateDistances()
 
 		if(wset.front().i > temp)
 		{
-			Sleep(100);
+			Sleep(delay);
 			//map->draw();
 			temp++;
 		}
 
 		wset.pop_front();
 
-		map->updateData(wset.size(), sizeof(wset));
+		map->updateData(wset.size(), profiler.getCurrentRSS(), profiler.getPeakRSS());
 
 	}
 
@@ -214,6 +216,9 @@ void Lee::traceBack()
 		// push the adjacent point with lowest distance to the path stack using the function of "path_final.push()"
 		path_final.push(currentPoint);
 
+		map->updateData(wset.size(), profiler.getCurrentRSS(), profiler.getPeakRSS());
+
+
 	}while(currentPoint.i != 0);
 
 }
@@ -227,7 +232,10 @@ void Lee::drawPath()
 	{
 		map->setI(path_final.top().x, path_final.top().y, path_final.top().i);
 		path_final.pop();
-		Sleep(100);
+
+		map->updateData(wset.size(), profiler.getCurrentRSS(), profiler.getPeakRSS());
+
+		Sleep(delay);
 	}
 }
 

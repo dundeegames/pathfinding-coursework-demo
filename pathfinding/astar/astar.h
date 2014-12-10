@@ -10,13 +10,16 @@
 #ifndef ASTAR_H
 #define ASTAR_H
 
-#include "../board/board.h"
+
 
 #include <iostream>
 #include <windows.h>	// Sleep()
 #include <stdlib.h>		// abs()
 #include <stack>
 #include <queue> 
+
+#include "../board/board.h"
+#include "../test/profiler.h"
 
 
 
@@ -57,12 +60,12 @@ class Astar
 {
 public:
 
-	void generatePath(Vector start, Vector end, Board* board_);
+	void generatePath(Vector start, Vector end, Board* board_, int timer_);
 
 private:
-
+	Profiler profiler;
 	Board* map;
-
+	int delay;
 
 	std::stack<Vector> path_final;
 
