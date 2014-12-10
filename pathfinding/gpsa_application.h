@@ -1,6 +1,17 @@
+// /////////////////////////////////////////////////////////////////////////////
+/*!	 																	      \n
+*						GPSA - Pathfinding coursework	         			  \n
+*                          by Jiri Klic, Dec 2014							  \n
+*																			  \n
+*/ /////////////////////////////////////////////////////////////////////////////
+
+
+
 #ifndef GPSA_APPLICATION_H
 #define GPSA_APPLICATION_H
 
+
+// INCLUDES ////////////////////////////////////////////////////////////////////
 #include <iostream>
 #include <windows.h>
 #include <time.h>
@@ -9,10 +20,14 @@
 #include "board/board.h"
 #include "astar/astar.h"
 #include "lee/lee.h"
+#include "hashing/hashing.h"
 
 
 enum State {MAIN_MENU, INSTRUCTIONS_MENU, ABOUT_MENU, HASHING, LEE, ASTAR, END};
 
+
+
+// CLASS ///////////////////////////////////////////////////////////////////////
 
 class GPSAapplication
 {
@@ -32,6 +47,7 @@ private:
 	Board* board;
 	Astar* astar;
 	Lee* lee;
+	Hashing* hash;
 
 	void Manage_Input();
 

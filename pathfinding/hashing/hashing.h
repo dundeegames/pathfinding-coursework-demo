@@ -1,11 +1,10 @@
-///*****************************************************************************
-///*****************************************************************************
-///*****                                                                   *****
-///*****                  Hashing - Pathfinding laboratory                 *****
-///*****                       by Jiri Klic, Dec 2014                      *****
-///*****                                                                   *****
-///*****************************************************************************
-///*****************************************************************************
+// /////////////////////////////////////////////////////////////////////////////
+/*!	 																	      \n
+*			          Hashing - Pathfinding laboratory	         			  \n
+*                          by Jiri Klic, Dec 2014							  \n
+*																			  \n
+*/ /////////////////////////////////////////////////////////////////////////////
+
 
 
 
@@ -31,12 +30,12 @@ enum GameStatus {WIN, loss, draw, undecided, illegal};
 
 // -----------------------------------------------------------------------------
 
-struct  Node
+struct  Piece
 {
-	int Node_number;			// Nodes kept in order
+	int Piece_number;			// Pieces kept in order
 	int dat;
-	struct Node * left;    		// doubly-linked    
-	struct Node * right;
+	struct Piece * left;    		// doubly-linked    
+	struct Piece * right;
 };
 
 // -----------------------------------------------------------------------------
@@ -50,7 +49,7 @@ struct Position
 
 // -----------------------------------------------------------------------------
 
-typedef  struct  Node*  pointer;
+typedef  struct  Piece*  pointer;
 
 
 
@@ -63,6 +62,7 @@ public:
 	Hashing();
 	~Hashing();
 
+
 	void run();
 
 
@@ -74,7 +74,7 @@ private:
 
 
 	void check_wset();
-	void  insert(int v, int num, Node* h);
+	void  insert(int v, int num, Piece* h);
 	int boardval(int b[BD_SIZE][BD_SIZE]);
 	int min_boardval(Position p);
 	void single_step();

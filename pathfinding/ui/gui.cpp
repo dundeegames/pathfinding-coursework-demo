@@ -213,7 +213,7 @@ void Gui::Main_Menu()							// shows the MAIN MENU screen
 
 	Draw_Banner(13, 4, 15, PATHFINDING);
 
-	Draw_String(21,11,"Jiri Klic - Coursework, November 2014");
+	Draw_String(21,11,"Jiri Klic - Coursework, December 2014");
 
 
 	Draw_String(0,20,"CHOOSE FROM THE FOLLOWING OPTIONS: ");

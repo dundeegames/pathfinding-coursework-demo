@@ -60,6 +60,9 @@
     <ClCompile Include="test\profiler.cpp">
       <Filter>test</Filter>
     </ClCompile>
+    <ClCompile Include="doxygen.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ui\gui.h">

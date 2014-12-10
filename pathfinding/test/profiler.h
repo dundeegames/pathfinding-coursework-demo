@@ -1,19 +1,18 @@
-///*****************************************************************************
-///*****************************************************************************
-///*****                                                                   *****
-///*****           Profiler class - for memory and CPU analysis            *****
-///*****                      by Jiri Klic, Dec 2014                       *****
-///*****                                                                   *****
-///*****      Timing functions based on CTimer class, available from       *****
-///*****      http://xoax.net/cpp/crs/misc/lessons/HighResTimer/           *****
-///*****      [2009]Xoax. Accessed[02.Dec.2014]                            *****
-///*****                                                                   *****
-///*****      Memory analysis based on code from David Robert Nadeau,      *****
-///*****      avalilable from  http://NadeauSoftware.com/                  *****
-///*****      Accessed[05.Dec.2014]                                        *****
-///*****                                                                   *****
-///*****************************************************************************
-///*****************************************************************************
+// /////////////////////////////////////////////////////////////////////////////
+/*!	 																	      \n
+*               Profiler class - for memory and CPU analysis				  \n
+*                          by Jiri Klic, Dec 2014							  \n
+*	 	  																      \n
+*          Timing functions based on CTimer class, available from			  \n
+*          http://xoax.net/cpp/crs/misc/lessons/HighResTimer/				  \n
+*          [2009]Xoax. Accessed[02.Dec.2014]								  \n
+*	 	  																      \n
+*          Memory analysis based on code from David Robert Nadeau,			  \n
+*          avalilable from  http://NadeauSoftware.com/						  \n
+*          Accessed[05.Dec.2014]											  \n
+*																			  \n
+*																			  \n
+*/ /////////////////////////////////////////////////////////////////////////////
 
 
 
@@ -21,7 +20,7 @@
 #define PROFILER_H
 
 
-/// INCLUDES ///////////////////////////////////////////////////////////////////
+// INCLUDES ////////////////////////////////////////////////////////////////////
 #include <iostream>
 #include <windows.h>
 #include <psapi.h>
@@ -31,7 +30,7 @@
 
 
 
-/// CLASS //////////////////////////////////////////////////////////////////////
+// CLASS ///////////////////////////////////////////////////////////////////////
 
 class Profiler
 {
@@ -90,7 +89,7 @@ private:
 
 
 /**
-/// USE EXAMPLE ////////////////////////////////////////////////////////////////
+// USE EXAMPLE /////////////////////////////////////////////////////////////////
 
 void Bubblesort(int iaArray[], int iLength)
 {

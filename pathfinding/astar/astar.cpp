@@ -62,15 +62,15 @@ void Astar::updateAdjSquares(Vector point, Vector goal)
 	int h = 0;
 	int f = 0;
 
-	// 1 update the distance number of the West adjacent node
-		// (1) Get the West adjacent node from board.board[][] 
-		// (2) Check whether the West adjacent node is empty by comparing its index (getI()) with the Macro "B_EMPTY"
-		// (3) calculate the tentative g, h, f costs of the West adjacent node, g is the distance of the current node plus one, h is the Manhattan distance from the West adjacent node to target node
-		// (4) if the tentative f cost is less than the old f cost of the West adjacent node, then update the g, h, f cost using the function "board.board[][].setFGH()"
-
-				// !!! Error: ^ fixed by if(f < tempNode.getI()) intead of // if(f < tempNode.getF())
-		// (5) push the updated West adjacent point "cVector" to the working set using the member function of "wset.push()".
-	
+	/*! 1 update the distance number of the West adjacent node
+	*		(1) Get the West adjacent node from board.board[][] 
+	*		(2) Check whether the West adjacent node is empty by comparing its index (getI()) with the Macro "B_EMPTY"
+	*		(3) calculate the tentative g, h, f costs of the West adjacent node, g is the distance of the current node plus one, h is the Manhattan distance from the West adjacent node to target node
+	*		(4) if the tentative f cost is less than the old f cost of the West adjacent node, then update the g, h, f cost using the function "board.board[][].setFGH()"
+	*
+	*			!!! Error: if(f < tempNode.getF()), fixed by initializing f to same start value as i (using macros WALL, EMPTY)
+	*		(5) push the updated West adjacent point "cVector" to the working set using the member function of "wset.push()".
+	*/
 	
 	tempNode = map->getNode((point.x - 1), point.y);
 
@@ -200,19 +200,15 @@ void Astar::traceBack(Vector start, Vector end)
 	path_final.push(end);
 
 
-	// find the node "board.board[][]" with lowest distance around the end node in clockwise orientation of West, North, East and South  
-
-
-	
-	// push the adjacent point with lowest distance to the path stack using the function of "path_final.push(cVector())"
-
-
-
-	// work back from lowest to S to populate the stack with the final path from S to T
-	// 1. using a do-while loop, starting from the lowest point "cVetor" around the target point, finishing at the start point
-	// 2. in each loop, find the lowest node "board.board[][]" from the four adjacent node of the current node in clockwise orientation of West, North, East and South
-	// 3. in each loop, push the lowest point "cVetor" to the path stack using the function of "path_final.push()"
-
+	/*! find the node "board.board[][]" with lowest distance around the end node in clockwise orientation of West, North, East and South  
+	*
+	*	push the adjacent point with lowest distance to the path stack using the function of "path_final.push(cVector())"
+	*
+	*	work back from lowest to S to populate the stack with the final path from S to T
+	*	1. using a do-while loop, starting from the lowest point "cVetor" around the target point, finishing at the start point
+	*	2. in each loop, find the lowest node "board.board[][]" from the four adjacent node of the current node in clockwise orientation of West, North, East and South
+	*	3. in each loop, push the lowest point "cVetor" to the path stack using the function of "path_final.push()"
+	*/
 	
 	currentPoint = end;
 

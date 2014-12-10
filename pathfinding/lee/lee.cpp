@@ -97,11 +97,12 @@ void Lee::updateAdjSquares(point current)
 {
 	int tempIndex = 0;
 
-	// update the distance number of the West adjacent square
-	// 1. get the x, y coordiantes of the West adjacnet square using the member funtion of
-	// 2. and cheke whether it is empty by comparing the distance with the Macro "B_EMPTY"
-	// 3. if it is empty, update the distance number using the current distance plus 1 using the member function of "board.setSquare()"
-	// 4. push the updated West adjacnet square to the working set using the member function of "wset.push_back()".
+	/*!	update the distance number of the West adjacent square
+	*	1. get the x, y coordiantes of the West adjacnet square using the member funtion of
+	*	2. and cheke whether it is empty by comparing the distance with the Macro "B_EMPTY"
+	*	3. if it is empty, update the distance number using the current distance plus 1 using the member function of "board.setSquare()"
+	*	4. push the updated West adjacnet square to the working set using the member function of "wset.push_back()".
+	*/
 	tempIndex = map->getI((current.x-1), current.y);
 
 	if(tempIndex == B_EMPTY)
@@ -156,12 +157,12 @@ void Lee::traceBack()
 	path_final.push(currentPoint);
 
 
-	// find the lowest distance around the end point in the order of West, North, East and South, using the function of "board.getSquare()"
-	// work back from lowest to S to populate the stack with the final path from S to T
-	// 1. using a do-while loop, starting from the lowest point of the end point, ending at the start point
-	// 2. in each loop, find the first point (with distance i-1, i is the distance of the current point) from the four adjacent points of the current point in the order of West, North, East and South, using fucntion of "board.getSquare()". 
-	// 3. in each loop, push the frist i-1 point to the path stack using the function of "path_final.push()"
-
+	/*!	find the lowest distance around the end point in the order of West, North, East and South, using the function of "board.getSquare()"
+	*	work back from lowest to S to populate the stack with the final path from S to T
+	*	1. using a do-while loop, starting from the lowest point of the end point, ending at the start point
+	*	2. in each loop, find the first point (with distance i-1, i is the distance of the current point) from the four adjacent points of the current point in the order of West, North, East and South, using fucntion of "board.getSquare()". 
+	*	3. in each loop, push the frist i-1 point to the path stack using the function of "path_final.push()"
+	*/
 
 	do
 	{

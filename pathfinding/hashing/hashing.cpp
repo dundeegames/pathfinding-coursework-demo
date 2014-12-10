@@ -19,6 +19,10 @@ Hashing::~Hashing()
 
 void Hashing::run()
 {
+	/**
+	*	\callgraph
+	*/
+
 	Position temp;		// used to initialise data structures
 
 	//  Set up initial Position 
@@ -58,17 +62,17 @@ void Hashing::run()
 
 void Hashing::check_wset()
 {
-	pointer head, tail;								// constant pointers to dummy Nodes
+	pointer head, tail;								// constant pointers to dummy Pieces
 
-	head = (pointer) malloc(sizeof(Node));			// dummy head Node
-	tail = (pointer) malloc(sizeof(Node));			// dummy tail Node	
+	head = (pointer) malloc(sizeof(Piece));			// dummy head Piece
+	tail = (pointer) malloc(sizeof(Piece));			// dummy tail Piece	
 	head->left = NULL;
 	head->right = tail;
 	tail->left = head;
 	tail->right = NULL;								//  empty list
 
-	head->Node_number = 0;							// min value		
-	tail->Node_number = (1<<30) - 1 + (1<<30);		// max value		
+	head->Piece_number = 0;							// min value		
+	tail->Piece_number = (1<<30) - 1 + (1<<30);		// max value		
 
 
 
@@ -92,29 +96,29 @@ void Hashing::check_wset()
 
 // -----------------------------------------------------------------------------
 
-void Hashing::insert(int v, int num, Node* h)
+void Hashing::insert(int v, int num, Piece* h)
 {
-	static int ncount = 0;		// Node counter
+	static int ncount = 0;		// Piece counter
 
-	//	insert immediately to the left of Node_number num
+	//	insert immediately to the left of Piece_number num
 	pointer   temp, runner = h->right;
-	temp = (pointer) malloc ( sizeof ( Node ) );
+	temp = (pointer) malloc ( sizeof ( Piece ) );
 
 
 	// Could guard against memory failure here, trap temp == NULL
-	temp->dat = v;				// initialise new Node
-	temp->Node_number = num;	// key on board value
+	temp->dat = v;				// initialise new Piece
+	temp->Piece_number = num;	// key on board value
 
 
-	//  Now search to find new right hand neighbour Node
-	while (runner->Node_number < num)
+	//  Now search to find new right hand neighbour Piece
+	while (runner->Piece_number < num)
 	{
 		runner = runner->right;
 	}
 
 
-	// Now insert Node "temp" to the left of Node "runner"
-	if(runner->Node_number==num)
+	// Now insert Piece "temp" to the left of Piece "runner"
+	if(runner->Piece_number==num)
 	{
 		cout<<"insert   clash  "<< num<<endl;
 	}
