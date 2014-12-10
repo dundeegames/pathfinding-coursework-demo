@@ -73,87 +73,43 @@ void Astar::updateAdjSquares(Vector point, Vector goal)
 	*		(5) push the updated West adjacent point "cVector" to the working set using the member function of "wset.push()".
 	*/
 	
-	tempNode = map->getNode((point.x - 1), point.y);
-
-	if(tempNode.getI() == B_EMPTY)
+	for(int j = -1; j < 2; j++)
 	{
-		// g is the distance of the current node plus one
-		g = map->getI(point.x, point.y) + 1;
-
-		// h is the Manhattan distance from the West adjacent node to target node
-		h = manhattanDistance(Vector((point.x - 1), point.y), goal);
-
-		f = g + h;
-
-		if(f < tempNode.getF())
+		for(int i = -1; i < 2; i++)
 		{
-			map->setFGH((point.x - 1), point.y, g, h);
-			wset.push(Vector((point.x - 1), point.y, f));
+			if(std::abs(j) != std::abs(i))		// Von Neumann neighbourhood (Manhattan)
+			{
+				tempNode = map->getNode((point.x + i), (point.y + j));
+
+				if(tempNode.getI() == B_EMPTY)
+				{
+					// g is the distance of the current node plus one
+					g = map->getI(point.x, point.y) + 1;
+
+					// h is the Manhattan distance from the West adjacent node to target node
+					h = manhattanDistance(Vector((point.x + i), (point.y + j)), goal);
+
+					f = g + h;
+
+					if(f < tempNode.getF())
+					{
+						map->setFGH((point.x + i), (point.y + j), g, h);
+						wset.push(Vector((point.x + i), (point.y + j), f));
+					}
+				}
+			}
+
+			/*if((i == 0) && (j == 0))			// Moore / Conway neighbourhood (+Diagonal)
+			{
+				continue;
+			}
+			else
+			{
+
+			}
+			*/
 		}
 	}
-
-
-	// 2 update the distance number of the North adjacent node
-	tempNode = map->getNode(point.x, (point.y - 1));
-
-	if(tempNode.getI() == B_EMPTY)
-	{
-		// g is the distance of the current node plus one
-		g= map->getI(point.x, point.y) + 1;
-
-		// h is the Manhattan distance from the West adjacent node to target node
-		h = manhattanDistance(Vector(point.x, (point.y - 1)), goal);
-
-		f = g + h;
-
-		if(f < tempNode.getF())
-		{
-			map->setFGH(point.x, (point.y - 1), g, h);
-			wset.push(Vector(point.x, (point.y - 1), f));
-		}
-	}	
-
-	// 3 update the distance number of the East adjacent node
-	tempNode = map->getNode((point.x + 1), point.y);
-	
-	if(tempNode.getI() == B_EMPTY)
-	{
-		// g is the distance of the current node plus one
-		g= map->getI(point.x, point.y) + 1;
-
-		// h is the Manhattan distance from the West adjacent node to target node
-		h = manhattanDistance(Vector((point.x + 1), point.y), goal);
-
-		f = g + h;
-
-		if(f < tempNode.getF())
-		{
-			map->setFGH((point.x + 1), point.y, g, h);
-			wset.push(Vector((point.x + 1), point.y, f));
-		}
-	}
-	
-
-	// 4 update the distance number of the South adjacent node
-	tempNode = map->getNode(point.x, (point.y + 1));
-
-	if(tempNode.getI() == B_EMPTY)
-	{
-		// g is the distance of the current node plus one
-		g= map->getI(point.x, point.y) + 1;
-
-		// h is the Manhattan distance from the West adjacent node to target node
-		h = manhattanDistance(Vector(point.x, (point.y + 1)), goal);
-
-		f = g + h;
-
-		if(f < tempNode.getF())
-		{
-			map->setFGH(point.x, (point.y + 1), g, h);
-			wset.push(Vector(point.x, (point.y + 1), f));
-		}
-	}	
-
 
 }// end of updateAdjSquares
 

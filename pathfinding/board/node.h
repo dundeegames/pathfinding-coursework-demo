@@ -11,13 +11,15 @@ public:
 	void init(int if_);
 	void setI(int i_);
 	void setFGH(int g_, int h_);
+	//void setParent(Node* pr);
 
+	//Node* getParent();
 	int getI();
 	int getF();
-	int getH();
+	//int getH();
 
 private:
-
+	//Node* parent;
 	int i;		// index of tile = g, B_EMPTY, B_WALL, B_START, B_END
 
 	int f;		// f costs for pathing

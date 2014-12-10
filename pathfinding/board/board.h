@@ -37,10 +37,11 @@ public:
 
 	void setI(int x, int y, int i_);
 	void setFGH(int x, int y, int g_, int h_);
+	//void setParent(int x, int y, int px, int py);
 
 	int getI(int x, int y);
 	int getF(int x, int y);
-	int getH(int x, int y);
+	//int getH(int x, int y);
 
 	void updateData(int nodes_, int mcur_, int mmax_);
 	void drawMap();

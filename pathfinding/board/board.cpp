@@ -322,12 +322,12 @@ int Board::getF(int x, int y)
 
 // ------------------------------------------------------------------------------
 
-
+/*
 int Board::getH(int x, int y)
 {
 	return nodeMap[x][y].getH();
 }
-
+*/
 // ------------------------------------------------------------------------------
 
 
@@ -381,6 +381,7 @@ void Board::updateData(int nodes_, int mcur_, int mmax_)
 
 // ------------------------------------------------------------------------------
 
+
 void Board::drawData()
 {
 	// draw new ones
@@ -391,3 +392,12 @@ void Board::drawData()
 	ui->Draw_Integer((xPosition + 42), (yPosition - 2), 10, sizeBmax);
 
 }
+
+// ------------------------------------------------------------------------------
+
+/*
+void Board::setParent(int x, int y, int px, int py)
+{
+	nodeMap[x][y].setParent(&nodeMap[px][py]);
+}
+*/

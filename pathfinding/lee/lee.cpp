@@ -105,42 +105,38 @@ void Lee::updateAdjSquares(point current)
 	*	3. if it is empty, update the distance number using the current distance plus 1 using the member function of "board.setSquare()"
 	*	4. push the updated West adjacnet square to the working set using the member function of "wset.push_back()".
 	*/
-	tempIndex = map->getI((current.x-1), current.y);
-
-	if(tempIndex == B_EMPTY)
+	for(int j = -1; j < 2; j++)
 	{
-		map->setI((current.x-1), current.y, (current.i + 1));
-		wset.push_back(point((current.x-1), current.y, (current.i + 1)));
-	}
+		for(int i = -1; i < 2; i++)
+		{
+			if(std::abs(j) != std::abs(i))		// Von Neumann neighbourhood (Manhattan)
+			{
+				tempIndex = map->getI((current.x + i), (current.y + j));
 
+				if(tempIndex == B_EMPTY)
+				{
+					map->setI((current.x + i), (current.y + j), (current.i + 1));
+					//map->setParent((current.x + i), (current.y + j), current.x, current.y);
+					wset.push_back(point((current.x + i), (current.y + j), (current.i + 1)));
+				}
+			}
 
-	// update the distance number of the North adjacent square
-	tempIndex = map->getI(current.x, (current.y-1));
+			/*if((i == 0) && (j == 0))			// Moore / Conway neighbourhood (+Diagonal)
+			{
+				continue;
+			}
+			else
+			{
+				tempIndex = map->getI((current.x + i), (current.y + j));
 
-	if(tempIndex == B_EMPTY)
-	{
-		map->setI(current.x, (current.y-1), (current.i + 1));
-		wset.push_back(point(current.x, (current.y-1), (current.i + 1)));
-	}
-
-
-	// update the distance number of the East adjacent square
-	tempIndex = map->getI((current.x+1), current.y);
-
-	if(tempIndex == B_EMPTY)
-	{
-		map->setI((current.x+1), current.y, (current.i + 1));
-		wset.push_back(point((current.x+1), current.y, (current.i + 1)));
-	}
-
-			
-	// update the distance number of the South adjacent square
-	tempIndex = map->getI(current.x, (current.y+1));
-
-	if(tempIndex == B_EMPTY)
-	{
-		map->setI(current.x, (current.y+1), (current.i + 1));
-		wset.push_back(point(current.x, (current.y+1), (current.i + 1)));
+				if(tempIndex == B_EMPTY)
+				{
+					map->setI((current.x + i), (current.y + j), (current.i + 1));
+					wset.push_back(point((current.x + i), (current.y + j), (current.i + 1)));
+				}
+			}
+			*/
+		}
 	}
 
 }
@@ -159,11 +155,20 @@ void Lee::traceBack()
 	path_final.push(currentPoint);
 
 
-	/*!	find the lowest distance around the end point in the order of West, North, East and South, using the function of "board.getSquare()"
-	*	work back from lowest to S to populate the stack with the final path from S to T
-	*	1. using a do-while loop, starting from the lowest point of the end point, ending at the start point
-	*	2. in each loop, find the first point (with distance i-1, i is the distance of the current point) from the four adjacent points of the current point in the order of West, North, East and South, using fucntion of "board.getSquare()". 
-	*	3. in each loop, push the frist i-1 point to the path stack using the function of "path_final.push()"
+	/*!	find the lowest distance around the end point in the order of West, North,
+	*	East and South, using the function of "board.getSquare()". Work back from
+	*	lowest to S to populate the stack with the final path from S to T \n
+	*
+	*	1. using a do-while loop, starting from the lowest point of the end point,
+	*		ending at the start point \n
+	*
+	*	2. in each loop, find the first point (with distance i-1, i is the distance
+	*		of the current point) from the four adjacent points of the current point
+	*		in the order of West, North, East and South, using fucntion of
+	*		"board.getSquare()". \n
+	*
+	*	3. in each loop, push the frist i-1 point to the path stack using
+	*		the function of "path_final.push()"
 	*/
 
 	do
