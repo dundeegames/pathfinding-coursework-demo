@@ -11,7 +11,7 @@ Gui::Gui()
 
 }
 
-// ------------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 
 
 Gui::~Gui()
@@ -19,7 +19,7 @@ Gui::~Gui()
 
 }
 
-// ------------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 
 
 void Gui::init()
@@ -46,7 +46,7 @@ void Gui::init()
 
 }
 
-// ------------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 
 
 bool Gui::loadMap(char* name)
@@ -54,7 +54,7 @@ bool Gui::loadMap(char* name)
 	return true;
 }
 
-// ------------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 
 // this function draws a string at the given x,y
 void Gui::Draw_String(int x,int y, char *string)
@@ -70,7 +70,7 @@ void Gui::Draw_String(int x,int y, char *string)
 	printf("%s",string);
 }
 
-// ------------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 
 // this function draws a integer at the given x,y with width n
 void Gui::Draw_Integer(int x,int y, int n, int value)
@@ -89,7 +89,7 @@ void Gui::Draw_Integer(int x,int y, int n, int value)
 
 }
 
-// ------------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 
 // this function draws a character at the given x,y
 void Gui::Draw_Character(int x,int y, char c)
@@ -105,7 +105,7 @@ void Gui::Draw_Character(int x,int y, char c)
 	printf("%c\n",c);
 }
 
-// ------------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 
 // this function draws a integer at the given x,y with width n
 void Gui::Draw_Float(int x,int y, int n, float value)
@@ -123,7 +123,7 @@ void Gui::Draw_Float(int x,int y, int n, float value)
 	cout << value;		// display float value
 }
 
-// ------------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 
 // draws a string at the given x,y AND wait for key press to finish
 void Gui::Press_Key(int x,int y, char *string)
@@ -146,7 +146,7 @@ void Gui::Press_Key(int x,int y, char *string)
 	}
 }
 
-// ------------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 
 // draws a 2 lines Starting at x, at height y_1 and y_2, of length = limit
 void Gui::Draw_Lines(int x, int y_1, int y_2, int limit)
@@ -160,7 +160,7 @@ void Gui::Draw_Lines(int x, int y_1, int y_2, int limit)
 	}
 }
 
-// ------------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 
 // draws button with a string at the given x,y and colour c
 void Gui::Draw_Button(int x,int y, int colour, char *string)
@@ -185,7 +185,7 @@ void Gui::Draw_Button(int x,int y, int colour, char *string)
 	Draw_String(x+length,y+1,"-'");
 }
 
-// ------------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 
 
 void Gui::Clear_Screen()
@@ -202,7 +202,7 @@ void Gui::Clear_Screen()
 }
 
 
-// ------------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 
 
 void Gui::Main_Menu()							// shows the MAIN MENU screen
@@ -218,7 +218,7 @@ void Gui::Main_Menu()							// shows the MAIN MENU screen
 
 	Draw_String(0,20,"CHOOSE FROM THE FOLLOWING OPTIONS: ");
 
-	Draw_Button(29,24, 14, " 1 - Hashing and GPSA  ");
+	Draw_Button(29,24, 14, " 1 - Noughts & Crosses ");
 
 	Draw_Button(29,27, 11, " 2 - The Lee algorithm ");
 
@@ -234,7 +234,7 @@ void Gui::Main_Menu()							// shows the MAIN MENU screen
 
 }
 
-// ------------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 
 void Gui::Draw_Frame(int x, int y, int colour, int width, int height)
 {
@@ -289,7 +289,7 @@ void Gui::Draw_Frame(int x, int y, int colour, int width, int height)
 }
 
 
-// ------------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 
 
 void Gui::Draw_VertLine(int x, int y, int height)
@@ -305,7 +305,7 @@ void Gui::Draw_VertLine(int x, int y, int height)
 
 }
 
-// ------------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 
 
 void Gui::Instructions_Sreen()			// shows the INSTRUCTIONS screen
@@ -329,7 +329,7 @@ void Gui::Instructions_Sreen()			// shows the INSTRUCTIONS screen
 
 }
 
-// ------------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 
 
 void Gui::About_Screen()				// shows the ABOUT screen
@@ -353,7 +353,7 @@ void Gui::About_Screen()				// shows the ABOUT screen
 
 }
 
-// ------------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 
 
 void Gui::GoodBye_Screen()				// shows the GOOD BYE screen
@@ -369,7 +369,7 @@ void Gui::GoodBye_Screen()				// shows the GOOD BYE screen
 
 }
 
-// ------------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 
 
 void Gui::GameOver_Screen()				// shows the GAME OVER screen
@@ -385,7 +385,7 @@ void Gui::GameOver_Screen()				// shows the GAME OVER screen
 
 }
 
-// ------------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 
 
 void Gui::Draw_Banner(int x, int y, int colour, Banner ban_)
@@ -451,56 +451,19 @@ void Gui::Draw_Banner(int x, int y, int colour, Banner ban_)
 }
 
 
-/*
+// -----------------------------------------------------------------------------
 
-// ToDo: Figure out procedural tables
+void Gui::Draw_Grid(int x, int y)
+{
+	Draw_Lines(x, y, (y + 2), 13);
+	Draw_Lines(x, (y + 4), (y + 6), 13);
 
-
-void Table1(int x, int y){
-
-	Draw_String(x,y," _______________________________________________________________");
-	Draw_String(x,y+1,"|                                                               |");
-	Draw_String(x,y+2,"|                  Joe's Game Length Frequencies                |");
-	Draw_String(x,y+3,"| ______________________________________________________________|");
-	Draw_String(x,y+4,"|   |         |         |         |         |         |         |");
-	Draw_String(x,y+5,"|   |    7    |    8    |    9    |    10   |    11   |   >11   |");
-	Draw_String(x,y+6,"| __|_________|_________|_________|_________|_________|_________|");
-	Draw_String(x,y+7,"|   |         |         |         |         |         |         |");
-	Draw_String(x,y+8,"| # |         |         |         |         |         |         |");
-	Draw_String(x,y+9,"| __|_________|_________|_________|_________|_________|_________|");
-	Draw_String(x,y+10,"|   |         |         |         |         |         |         |");
-	Draw_String(x,y+11,"| % |         |         |         |         |         |         |");
-	Draw_String(x,y+12,"| __|_________|_________|_________|_________|_________|_________|");
-	Draw_String(x,y+13,"|                                 |                             |");
-	Draw_String(x,y+14,"| Number of Games:                | Average Length:             |");
-	Draw_String(x,y+15,"| ________________________________|_____________________________|");
+	for(int i = 0; i < 3; i++)
+	{
+		Draw_String(x, (y+(i*2)+1), "|   |   |   |");
+	}
 
 }
 
-//--------------------------------------------------------------------------------------------
 
-void Table2(int x, int y){
-
-	Draw_String(x,y," __________________________________________________________________");
-	Draw_String(x,y+1,"|                                                                  |");
-	Draw_String(x,y+2,"|                       Joe's Percentage Success                   |");
-	Draw_String(x,y+3,"| _________________________________________________________________|");
-	Draw_String(x,y+4,"|      |         |         |         |         |         |         |");
-	Draw_String(x,y+5,"| Rule |  Run 1  |  Run 2  |  Run 3  |  Run 4  |  Run 5  |  Mean   |");
-	Draw_String(x,y+6,"| _____|_________|_________|_________|_________|_________|_________|");
-	Draw_String(x,y+7,"|      |         |         |         |         |         |         |");
-	Draw_String(x,y+8,"|   1  |         |         |         |         |         |         |");
-	Draw_String(x,y+9,"| _____|_________|_________|_________|_________|_________|_________|");
-	Draw_String(x,y+10,"|      |         |         |         |         |         |         |");
-	Draw_String(x,y+11,"|   2  |         |         |         |         |         |         |");
-	Draw_String(x,y+12,"| _____|_________|_________|_________|_________|_________|_________|");
-	Draw_String(x,y+13,"|      |         |         |         |         |         |         |");
-	Draw_String(x,y+14,"|   3  |         |         |         |         |         |         |");
-	Draw_String(x,y+15,"| _____|_________|_________|_________|_________|_________|_________|");
-	Draw_String(x,y+16,"|                                                                  |");
-	Draw_String(x,y+17,"| Number of Games:                                                 |");
-	Draw_String(x,y+18,"| _________________________________________________________________|");
-
-}
-
-*/
+// 80 //////////////////////////////////////////////////////////////////////////

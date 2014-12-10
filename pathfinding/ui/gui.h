@@ -61,6 +61,8 @@ public:
 
 	void Clear_Screen();
 
+	void Draw_Grid(int x, int y);
+
 
 private:
 
@@ -70,7 +72,7 @@ private:
 
 
 
-	void Draw_Lines(int x, int y_1, int y_2, int limit);
+	
 	void Draw_Button(int x,int y, int colour, char *string);	// colour 0-15
 
 
@@ -81,7 +83,7 @@ private:
 
 	void Draw_VertLine(int x, int y, int height);				// min height = 2
 
-
+	void Draw_Lines(int x, int y_1, int y_2, int limit);
 
 	
 

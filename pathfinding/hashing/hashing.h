@@ -15,6 +15,8 @@
 // INCLUDES ////////////////////////////////////////////////////////////////////
 #include <iostream>
 #include <windows.h>
+#include "../ui/gui.h"
+#include "../test/profiler.h"
 
 using std::cout;
 using std::endl;
@@ -24,14 +26,22 @@ using std::endl;
 #define DLIST_MAX 8000
 #define BD_SIZE 3
 
+#define COUNTER 18
+
+#define TABLE_X 13
+#define TABLE_Y 23
+#define DIST_X 20
+#define DIST_Y 12
+
 // STURCTURES / ENUMS //////////////////////////////////////////////////////////
 
-enum GameStatus {WIN, loss, draw, undecided, illegal};
+enum GameStatus {WIN, LOSS, DRAW, UNDECIDED, ILLEGAL};
 
 // -----------------------------------------------------------------------------
 
 struct  Piece
 {
+	Piece(){}
 	int Piece_number;			// Pieces kept in order
 	int dat;
 	struct Piece * left;    		// doubly-linked    
@@ -49,6 +59,11 @@ struct Position
 
 // -----------------------------------------------------------------------------
 
+/*
+* Original piece of code. If all pieces renamed to Piece*, it will break the
+* the code. Since Piece is strunct and not Class, I asume the problem is somwhere
+* there. Dynamic memory allocation new and malloc works interchangably.
+*/
 typedef  struct  Piece*  pointer;
 
 
@@ -59,7 +74,7 @@ class Hashing
 {
 
 public:
-	Hashing();
+	Hashing(Gui* ui_);
 	~Hashing();
 
 
@@ -67,12 +82,24 @@ public:
 
 
 private:
+	Gui* ui;
+	int funcCounter[COUNTER];
+	int resultCounter[5];
+	int xoffset;
+	int yoffset;
+
+	Profiler profiler;
+
+
 	Position wset[WSET_MAX], dlist[DLIST_MAX];
 	//Position temp;					// used to initialise data structures
 	int head, rear, dlist1;
 	bool hashtable[HASH_MAX];
 
 
+	void drawTables(int x, int y);
+
+	// system functions (from original code)
 	void check_wset();
 	void  insert(int v, int num, Piece* h);
 	int boardval(int b[BD_SIZE][BD_SIZE]);

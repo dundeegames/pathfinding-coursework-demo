@@ -44,9 +44,11 @@ void GPSAapplication::run()
 			break;
 
 		case HASHING:
-			hash = new Hashing();
+			hash = new Hashing(&gui);
 			hash->run();
 			gui.Press_Key(22,47,"press any key to return to main menu..");
+
+			delete hash;
 			state = MAIN_MENU;
 			break;
 

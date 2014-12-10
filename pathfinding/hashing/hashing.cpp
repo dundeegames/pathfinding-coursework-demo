@@ -1,11 +1,23 @@
 #include "hashing.h"
 
 
-Hashing::Hashing()
+Hashing::Hashing(Gui* ui_)
 {
+	ui = ui_;
 	head = 0;
 	rear = 0;
 	dlist1 = 0;
+
+	for(int i = 0; i < COUNTER; i++)	// init funcCounter[]
+	{
+		funcCounter[i] = 0;
+	}
+
+	for(int i = 0; i < 5; i++)			// init resultCounter[]
+	{
+		resultCounter[i] = 0;
+	}
+
 }
 
 
@@ -15,13 +27,17 @@ Hashing::~Hashing()
 }
 
 
-// -----------------------------------------------------------------------------
+
+// SYSTEM FUNCTIONS ////////////////////////////////////////////////////////////
 
 void Hashing::run()
 {
-	/**
-	*	\callgraph
-	*/
+	profiler.Start();	// start timing
+
+
+	ui->Clear_Screen();
+
+	drawTables(TABLE_X, TABLE_Y);
 
 	Position temp;		// used to initialise data structures
 
@@ -39,7 +55,7 @@ void Hashing::run()
 		hashtable[i]= false;
 	}
 
-	temp.game = undecided;
+	temp.game = UNDECIDED;
 	temp.npieces = 0;
 
 	//and initialise wset and dlist
@@ -50,9 +66,13 @@ void Hashing::run()
 	{
 		single_step();
 	}
+
+	profiler.End();		// end timing
+
 	print_status();
-	Sleep(2000);
-	// check_wset();
+
+	//Sleep(2000);
+	//check_wset();
 
 
 }
@@ -62,10 +82,12 @@ void Hashing::run()
 
 void Hashing::check_wset()
 {
-	pointer head, tail;								// constant pointers to dummy Pieces
+	funcCounter[0]++;								// count function calls
 
-	head = (pointer) malloc(sizeof(Piece));			// dummy head Piece
-	tail = (pointer) malloc(sizeof(Piece));			// dummy tail Piece	
+	pointer head, tail;								// constant Piece*s to dummy Pieces
+	
+	head = new Piece();								// dummy head Piece
+	tail = new Piece();								// dummy tail Piece	
 	head->left = NULL;
 	head->right = tail;
 	tail->left = head;
@@ -98,11 +120,13 @@ void Hashing::check_wset()
 
 void Hashing::insert(int v, int num, Piece* h)
 {
+	funcCounter[1]++;			// count function calls
+
 	static int ncount = 0;		// Piece counter
 
 	//	insert immediately to the left of Piece_number num
 	pointer   temp, runner = h->right;
-	temp = (pointer) malloc ( sizeof ( Piece ) );
+	temp = (pointer) malloc ( sizeof ( Piece ) );	// works same as new Piece();
 
 
 	// Could guard against memory failure here, trap temp == NULL
@@ -120,7 +144,9 @@ void Hashing::insert(int v, int num, Piece* h)
 	// Now insert Piece "temp" to the left of Piece "runner"
 	if(runner->Piece_number==num)
 	{
-		cout<<"insert   clash  "<< num<<endl;
+		ui->Draw_String(5,5, "insert clash  ");
+		ui->Draw_Integer(19,5, 1, num);
+		//cout<<"insert   clash  "<< num<<endl;
 	}
 
 	temp->right = runner;
@@ -128,7 +154,10 @@ void Hashing::insert(int v, int num, Piece* h)
 	temp->left->right = temp;
 	temp->right->left = temp;
 
-	cout << "insert   " << ++ncount << "\t" << num << endl;
+	ui->Draw_String(5,6, "insert ");
+	ui->Draw_Integer(12,6, 1, ++ncount);
+	ui->Draw_Integer(19,6, 1, num);
+	//cout << "insert   " << ++ncount << "\t" << num << endl;
 
 }
 
@@ -137,6 +166,8 @@ void Hashing::insert(int v, int num, Piece* h)
 
 int Hashing::boardval(int b[BD_SIZE][BD_SIZE])
 {
+	funcCounter[2]++;								// count function calls
+
 	int total = 0;					// accumulate ternary number
 
 	for(int i=0; i < BD_SIZE; i++)
@@ -156,6 +187,8 @@ int Hashing::boardval(int b[BD_SIZE][BD_SIZE])
 
 int Hashing::min_boardval(Position p)
 {
+	funcCounter[3]++;								// count function calls
+
 	int min = HASH_MAX;				// minimum so far, initialised high
 	int temp;						// temporary store
 
@@ -196,18 +229,20 @@ int Hashing::min_boardval(Position p)
 
 void Hashing::single_step()
 {
+	funcCounter[4]++;								// count function calls
+
 	Position temp, possible;  
 
 	//	take Position from wset
 	temp = get_from_wset();
 
-	if(temp.game != undecided)		//  Game over already
+	if(temp.game != UNDECIDED)		//  Game over already
 	{
 		return;						//  skip the rest
 	}
 
 	/**	generate nine new Positions.  
-	*	Could do this in one step (setting some to illegal).
+	*	Could do this in one step (setting some to ILLEGAL).
 	*	I plan to process them in full one after the other.
 	*/
 	temp.npieces++;
@@ -219,7 +254,7 @@ void Hashing::single_step()
 		{
 			possible = temp;
 			
-			//	skip illegals
+			//	skip ILLEGALs
 			if(possible.bd[i][j] == 0)				// move legal
 			{
 				possible.bd[i][j] = xo;
@@ -272,6 +307,8 @@ void Hashing::single_step()
 
 int Hashing::search_dlist(Position p)
 {
+	funcCounter[5]++;								// count function calls
+
 	/*int i=0;
 
 	int is_duplicate(int p[3][3], int q[3][3]);
@@ -303,9 +340,11 @@ int Hashing::search_dlist(Position p)
 
 GameStatus Hashing::is_win_or_draw(Position p, int xo)
 {
+	funcCounter[6]++;								// count function calls
+
 	/**	Checking after a move can only lead to 
-	*	a win, return win if xo == 1, loss if xo == 2
-	*	a draw (if the board is now full, or (still) undecided).
+	*	a win, return win if xo == 1, LOSS if xo == 2
+	*	a DRAW (if the board is now full, or (still) UNDECIDED).
 	*	There are 8 columns / rows / diagonals patterns leading to
 	*	a decisive result:
 	*/
@@ -324,16 +363,16 @@ GameStatus Hashing::is_win_or_draw(Position p, int xo)
 		}
 		else
 		{
-			return loss;
+			return LOSS;
 		}
 	}
 	else if (p.npieces == 9)
 	{
-		return draw;
+		return DRAW;
 	}
 	else
 	{
-		return undecided;
+		return UNDECIDED;
 	}
 
 }
@@ -343,6 +382,8 @@ GameStatus Hashing::is_win_or_draw(Position p, int xo)
 
 int Hashing::is_duplicate(int p[3][3], int q[3][3])
 {
+	funcCounter[7]++;								// count function calls
+
 	int same = 1;
 
 	for(int i=0; i<3; i++)
@@ -361,6 +402,8 @@ int Hashing::is_duplicate(int p[3][3], int q[3][3])
 
 void Hashing::swap(int &a, int &b)
 {
+	funcCounter[8]++;								// count function calls
+
     int  temp = b;
     b = a;
     a = temp;
@@ -372,6 +415,7 @@ void Hashing::swap(int &a, int &b)
 
 void Hashing::rotation(int b[3][3])
 {
+	funcCounter[9]++;								// count function calls
 	//!< Rotate 90 degrees clockwise
 
 	int temp = b[0][0];
@@ -393,6 +437,8 @@ void Hashing::rotation(int b[3][3])
 
 void Hashing::reflection(int b[3][3])
 {
+	funcCounter[10]++;								// count function calls
+
 	//!< Reflect through vertical, middle column
 
 	for(int i=0; i<3; i++)
@@ -407,8 +453,44 @@ void Hashing::reflection(int b[3][3])
 
 void Hashing::print_status()
 {
-	cout << endl << "Working set size     = " << rear;
-	cout << "\tDuplicates list size = " << dlist1 << endl << endl;
+	funcCounter[11]++;								// count function calls
+
+	ui->Draw_String(14,3, "Working set size = ");
+	ui->Draw_Integer(33,3, 1, rear);
+
+	ui->Draw_String(41,3, "Duplicates list size = ");
+	ui->Draw_Integer(64,3, 1, dlist1);
+
+	for(int j = 0; j < 3; j++)
+	{
+		for(int i = 0; i < 6; i++)
+		{
+			int c = ((j*6)+i);
+			ui->Draw_String((11 + (j* (DIST_X + 3))),(7 + i), "func  : ");
+			ui->Draw_Integer((15 + (j* (DIST_X + 3))),(7 + i), 2, (c+1));
+			ui->Draw_Integer((20 + (j* (DIST_X + 3))), (7 + i), 1, funcCounter[c]);
+		}
+	}
+
+	ui->Draw_String(18,15, "WIN:");
+	ui->Draw_Integer(24,15, 1, resultCounter[0]);
+
+	ui->Draw_String(18,16, "LOSS:");
+	ui->Draw_Integer(24,16, 1, resultCounter[1]);
+
+	ui->Draw_String(34,15, "DRAW:");
+	ui->Draw_Integer(40,15, 1, resultCounter[2]);
+
+	ui->Draw_String(49,15, "UNDECIDED:");
+	ui->Draw_Integer(60,15, 1, resultCounter[3]);
+
+	ui->Draw_String(49,16, "ILLEGAL:");
+	ui->Draw_Integer(60,16, 1, resultCounter[4]);
+
+
+	ui->Draw_String(30,18, "Time:          ms");
+	ui->Draw_Float(36,18, 1, (float)profiler.GetTimeInMilliseconds());
+
 }
 
 
@@ -416,6 +498,8 @@ void Hashing::print_status()
 
 void Hashing::add_to_wset(Position p)
 {
+	funcCounter[12]++;								// count function calls
+
 	printp(p);
 	wset[rear++] = p;
 }
@@ -425,6 +509,8 @@ void Hashing::add_to_wset(Position p)
 
 int Hashing::wset_not_empty()
 {
+	funcCounter[13]++;								// count function calls
+
 	return head < rear;
 }
 
@@ -433,6 +519,8 @@ int Hashing::wset_not_empty()
 
 Position Hashing::get_from_wset()
 {
+	funcCounter[14]++;								// count function calls
+
 	return wset[head++];
 }
 
@@ -441,6 +529,8 @@ Position Hashing::get_from_wset()
 
 void Hashing::add_to_dlist(Position p)
 {
+	funcCounter[15]++;								// count function calls
+
 	//!< dlist[dlist1++] = p;
 	int hashvalue = min_boardval(p);
 	hashtable[hashvalue] = true;
@@ -451,17 +541,53 @@ void Hashing::add_to_dlist(Position p)
 
 void Hashing::printp(Position p)
 {
+	funcCounter[16]++;										// count function calls
+
+	xoffset = (funcCounter[16] % 3) *  DIST_X;				// choosing which table to draw
+
+	if((funcCounter[16] % 6) > 2)
+	{
+		yoffset = DIST_Y;
+	}
+	else
+	{
+		yoffset = 0;
+	}
+
+
     for (int i = 2; i >= 0; i--)
 	{
         for (int j = 0; j < 3; j++)
 		{
-            cout <<  p.bd[j][i];
+            //cout <<  p.bd[j][i];
+			int x = (i*4) + (TABLE_X + 2) + xoffset;
+			int y = (j*2) + (TABLE_Y + 1) + yoffset;
+
+
+			switch(p.bd[j][i])
+			{
+			case 1:
+				ui->Set_Color(10, 0);
+				ui->Draw_Character(x, y, 'X');
+				break;
+
+			case 2:
+				ui->Set_Color(12, 0);
+				ui->Draw_Character(x, y, 'O');
+				break;
+
+			default:
+				ui->Draw_Character(x, y, ' ');
+				break;
+			}
+			
 		}
-        cout << endl;
+        
     }
 
+	ui->Set_Color(15, 0);			// reset colour to white
+
 	printg(p.game);
-	cout << endl;
 
 }
 
@@ -470,18 +596,83 @@ void Hashing::printp(Position p)
 
 void Hashing::printg(GameStatus gg)
 {
+	// count function calls (should be same as funcCounter[16])
+	funcCounter[17]++;
+
+	int x = (TABLE_X + 2) + xoffset;
+	int y = (TABLE_Y + 8) + yoffset;
+
+
+	ui->Draw_String(x, y,"         ");				// clear the previous statement
 	switch (gg)
 	{
-	case WIN:       cout<<"WIN"      <<endl; break;
-	case loss:      cout<<"loss"     <<endl; break;
-	case draw:      cout<<"draw"     <<endl; break;
-	case undecided: cout<<"undecided"<<endl; break;
-	case illegal:   cout<<"illegal"  <<endl; break;
+	case WIN:
+		resultCounter[0]++;
+		ui->Set_Color(10, 0);
+		ui->Draw_String(x, y,"WIN");
+		break;
+
+	case LOSS:
+		resultCounter[1]++;
+		ui->Set_Color(12, 0);
+		ui->Draw_String(x, y,"LOSS");
+		break;
+
+	case DRAW:
+		resultCounter[2]++;
+		ui->Draw_String(x, y,"DRAW");
+		break;
+
+	case UNDECIDED:
+		resultCounter[3]++;
+		ui->Draw_String(x, y,"UNDECIDED");
+		break;
+
+	case ILLEGAL:
+		resultCounter[4]++;
+		ui->Draw_String(x, y,"ILLEGAL");
+		break;
+
 	}
 
-	cout << endl;
+	ui->Set_Color(15, 0);			// reset colour to white
 
 }
+
+
+// GUI FUNCTIONS ///////////////////////////////////////////////////////////////
+
+void Hashing::drawTables(int x, int y)
+{
+	for(int j=0; j < 2; j++)
+	{
+		for(int i = 0; i < 3; i++)
+		{
+			ui->Draw_Grid( (x + (i*DIST_X)), (y + (j*DIST_Y)) );
+		}
+
+	}
+
+}
+
+
+// -----------------------------------------------------------------------------
+
+
+
+
+
+// -----------------------------------------------------------------------------
+
+
+
+
+// -----------------------------------------------------------------------------
+
+
+
+
+// -----------------------------------------------------------------------------
 
 
 

@@ -4,7 +4,7 @@
 
 Profiler::Profiler()
 {
-
+	QueryPerformanceFrequency(&mqFreq);
 }
 
 
@@ -42,7 +42,7 @@ double Profiler::GetTimeInSeconds()
 
 double Profiler::GetTimeInMilliseconds()
 {
-	return (1.0e3*(mqEnd.QuadPart - mqStart.QuadPart))/mqFreq.QuadPart;
+	return (1.0e3*(mqEnd.QuadPart - mqStart.QuadPart))/(double)mqFreq.QuadPart;
 }
 
 
@@ -50,7 +50,7 @@ double Profiler::GetTimeInMilliseconds()
 
 double Profiler::GetTimeInMicroseconds()
 {
-	return (1.0e6*(mqEnd.QuadPart - mqStart.QuadPart))/mqFreq.QuadPart;
+	return (1.0e6*(mqEnd.QuadPart - mqStart.QuadPart))/(double)mqFreq.QuadPart;
 }
 
 
@@ -58,7 +58,7 @@ double Profiler::GetTimeInMicroseconds()
 
 double Profiler::GetTimeInNanoseconds()
 {
-	return (1.0e9*(mqEnd.QuadPart - mqStart.QuadPart))/mqFreq.QuadPart;
+	return (1.0e9*(mqEnd.QuadPart - mqStart.QuadPart))/(double)mqFreq.QuadPart;
 }
 
 
