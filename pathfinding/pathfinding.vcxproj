@@ -79,8 +79,8 @@
     <ClCompile Include="board\board.cpp" />
     <ClCompile Include="board\node.cpp" />
     <ClCompile Include="doxygen.cpp" />
-    <ClCompile Include="gpsa_application.cpp" />
-    <ClCompile Include="hashing\hashing.cpp" />
+    <ClCompile Include="application.cpp" />
+    <ClCompile Include="gpsa\gpsa.cpp" />
     <ClCompile Include="lee\lee.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="test\profiler.cpp" />
@@ -90,8 +90,8 @@
     <ClInclude Include="astar\astar.h" />
     <ClInclude Include="board\board.h" />
     <ClInclude Include="board\node.h" />
-    <ClInclude Include="gpsa_application.h" />
-    <ClInclude Include="hashing\hashing.h" />
+    <ClInclude Include="application.h" />
+    <ClInclude Include="gpsa\gpsa.h" />
     <ClInclude Include="lee\lee.h" />
     <ClInclude Include="test\profiler.h" />
     <ClInclude Include="ui\gui.h" />

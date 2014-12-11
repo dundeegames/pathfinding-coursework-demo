@@ -7,14 +7,14 @@
 
 
 
-#include"gpsa_application.h"
+#include"application.h"
 
 
 
 int main()
 {
 
-	GPSAapplication myApplication;
+	Application myApplication;
 
 	
 	myApplication.run();

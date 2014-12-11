@@ -1,7 +1,7 @@
-#include"gpsa_application.h"
+#include"application.h"
 
 
-GPSAapplication::GPSAapplication()
+Application::Application()
 {
 	// seed the random number generator with time
 	srand((unsigned)time(NULL));
@@ -13,13 +13,13 @@ GPSAapplication::GPSAapplication()
 }
 
 
-GPSAapplication::~GPSAapplication()
+Application::~Application()
 {
 
 }
 
 
-void GPSAapplication::run()
+void Application::run()
 {
 	gui.init();
 	
@@ -44,11 +44,11 @@ void GPSAapplication::run()
 			break;
 
 		case HASHING:
-			hash = new Hashing(&gui);
-			hash->run();
+			gpsa = new Gpsa(&gui);
+			gpsa->run();
 			gui.Press_Key(22,47,"press any key to return to main menu..");
 
-			delete hash;
+			delete gpsa;
 			state = MAIN_MENU;
 			break;
 
@@ -112,7 +112,7 @@ void GPSAapplication::run()
 // ------------------------------------------------------------------------------
 
 
-void GPSAapplication::Manage_Input()
+void Application::Manage_Input()
 {
 	char key;
 

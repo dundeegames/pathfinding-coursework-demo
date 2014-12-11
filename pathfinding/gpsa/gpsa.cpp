@@ -1,7 +1,7 @@
-#include "hashing.h"
+#include "gpsa.h"
 
 
-Hashing::Hashing(Gui* ui_)
+Gpsa::Gpsa(Gui* ui_)
 {
 	ui = ui_;
 	head = 0;
@@ -21,7 +21,7 @@ Hashing::Hashing(Gui* ui_)
 }
 
 
-Hashing::~Hashing()
+Gpsa::~Gpsa()
 {
 
 }
@@ -30,7 +30,7 @@ Hashing::~Hashing()
 
 // SYSTEM FUNCTIONS ////////////////////////////////////////////////////////////
 
-void Hashing::run()
+void Gpsa::run()
 {
 	profiler.Start();	// start timing
 
@@ -80,7 +80,7 @@ void Hashing::run()
 
 // -----------------------------------------------------------------------------
 
-void Hashing::check_wset()
+void Gpsa::check_wset()
 {
 	funcCounter[0]++;								// count function calls
 
@@ -118,7 +118,7 @@ void Hashing::check_wset()
 
 // -----------------------------------------------------------------------------
 
-void Hashing::insert(int v, int num, Piece* h)
+void Gpsa::insert(int v, int num, Piece* h)
 {
 	funcCounter[1]++;			// count function calls
 
@@ -164,7 +164,7 @@ void Hashing::insert(int v, int num, Piece* h)
 
 // -----------------------------------------------------------------------------
 
-int Hashing::boardval(int b[BD_SIZE][BD_SIZE])
+int Gpsa::boardval(int b[BD_SIZE][BD_SIZE])
 {
 	funcCounter[2]++;								// count function calls
 
@@ -185,7 +185,7 @@ int Hashing::boardval(int b[BD_SIZE][BD_SIZE])
 
 // -----------------------------------------------------------------------------
 
-int Hashing::min_boardval(Position p)
+int Gpsa::min_boardval(Position p)
 {
 	funcCounter[3]++;								// count function calls
 
@@ -227,7 +227,7 @@ int Hashing::min_boardval(Position p)
 
 // -----------------------------------------------------------------------------
 
-void Hashing::single_step()
+void Gpsa::single_step()
 {
 	funcCounter[4]++;								// count function calls
 
@@ -305,7 +305,7 @@ void Hashing::single_step()
 
 // -----------------------------------------------------------------------------
 
-int Hashing::search_dlist(Position p)
+int Gpsa::search_dlist(Position p)
 {
 	funcCounter[5]++;								// count function calls
 
@@ -338,7 +338,7 @@ int Hashing::search_dlist(Position p)
 
 // -----------------------------------------------------------------------------
 
-GameStatus Hashing::is_win_or_draw(Position p, int xo)
+GameStatus Gpsa::is_win_or_draw(Position p, int xo)
 {
 	funcCounter[6]++;								// count function calls
 
@@ -380,7 +380,7 @@ GameStatus Hashing::is_win_or_draw(Position p, int xo)
 
 // -----------------------------------------------------------------------------
 
-int Hashing::is_duplicate(int p[3][3], int q[3][3])
+int Gpsa::is_duplicate(int p[3][3], int q[3][3])
 {
 	funcCounter[7]++;								// count function calls
 
@@ -400,7 +400,7 @@ int Hashing::is_duplicate(int p[3][3], int q[3][3])
 
 // -----------------------------------------------------------------------------
 
-void Hashing::swap(int &a, int &b)
+void Gpsa::swap(int &a, int &b)
 {
 	funcCounter[8]++;								// count function calls
 
@@ -413,7 +413,7 @@ void Hashing::swap(int &a, int &b)
 
 // -----------------------------------------------------------------------------
 
-void Hashing::rotation(int b[3][3])
+void Gpsa::rotation(int b[3][3])
 {
 	funcCounter[9]++;								// count function calls
 	//!< Rotate 90 degrees clockwise
@@ -435,7 +435,7 @@ void Hashing::rotation(int b[3][3])
 
 // -----------------------------------------------------------------------------
 
-void Hashing::reflection(int b[3][3])
+void Gpsa::reflection(int b[3][3])
 {
 	funcCounter[10]++;								// count function calls
 
@@ -451,7 +451,7 @@ void Hashing::reflection(int b[3][3])
 
 // -----------------------------------------------------------------------------
 
-void Hashing::print_status()
+void Gpsa::print_status()
 {
 	funcCounter[11]++;								// count function calls
 
@@ -496,7 +496,7 @@ void Hashing::print_status()
 
 // -----------------------------------------------------------------------------
 
-void Hashing::add_to_wset(Position p)
+void Gpsa::add_to_wset(Position p)
 {
 	funcCounter[12]++;								// count function calls
 
@@ -507,7 +507,7 @@ void Hashing::add_to_wset(Position p)
 
 // -----------------------------------------------------------------------------
 
-int Hashing::wset_not_empty()
+int Gpsa::wset_not_empty()
 {
 	funcCounter[13]++;								// count function calls
 
@@ -517,7 +517,7 @@ int Hashing::wset_not_empty()
 
 // -----------------------------------------------------------------------------
 
-Position Hashing::get_from_wset()
+Position Gpsa::get_from_wset()
 {
 	funcCounter[14]++;								// count function calls
 
@@ -527,7 +527,7 @@ Position Hashing::get_from_wset()
 
 // -----------------------------------------------------------------------------
 
-void Hashing::add_to_dlist(Position p)
+void Gpsa::add_to_dlist(Position p)
 {
 	funcCounter[15]++;								// count function calls
 
@@ -539,7 +539,7 @@ void Hashing::add_to_dlist(Position p)
 
 // -----------------------------------------------------------------------------
 
-void Hashing::printp(Position p)
+void Gpsa::printp(Position p)
 {
 	funcCounter[16]++;										// count function calls
 
@@ -594,7 +594,7 @@ void Hashing::printp(Position p)
 
 // -----------------------------------------------------------------------------
 
-void Hashing::printg(GameStatus gg)
+void Gpsa::printg(GameStatus gg)
 {
 	// count function calls (should be same as funcCounter[16])
 	funcCounter[17]++;
@@ -642,7 +642,7 @@ void Hashing::printg(GameStatus gg)
 
 // GUI FUNCTIONS ///////////////////////////////////////////////////////////////
 
-void Hashing::drawTables(int x, int y)
+void Gpsa::drawTables(int x, int y)
 {
 	for(int j=0; j < 2; j++)
 	{

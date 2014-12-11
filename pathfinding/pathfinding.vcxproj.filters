@@ -22,14 +22,14 @@
     <Filter Include="lee">
       <UniqueIdentifier>{329634d3-a5cc-4c8c-bcc7-d9808c287967}</UniqueIdentifier>
     </Filter>
-    <Filter Include="hashing">
-      <UniqueIdentifier>{bfd48af4-512f-4d58-97f6-f6d1ea81efd5}</UniqueIdentifier>
-    </Filter>
     <Filter Include="board">
       <UniqueIdentifier>{9147967a-4523-41e0-bb23-8991ae337789}</UniqueIdentifier>
     </Filter>
     <Filter Include="test">
       <UniqueIdentifier>{a02051c8-5d5d-4e07-92ee-6034beb4bb01}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gpsa">
+      <UniqueIdentifier>{bfd48af4-512f-4d58-97f6-f6d1ea81efd5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -38,9 +38,6 @@
     </ClCompile>
     <ClCompile Include="ui\gui.cpp">
       <Filter>ui</Filter>
-    </ClCompile>
-    <ClCompile Include="gpsa_application.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="astar\astar.cpp">
       <Filter>astar</Filter>
@@ -54,22 +51,22 @@
     <ClCompile Include="board\node.cpp">
       <Filter>board</Filter>
     </ClCompile>
-    <ClCompile Include="hashing\hashing.cpp">
-      <Filter>hashing</Filter>
-    </ClCompile>
     <ClCompile Include="test\profiler.cpp">
       <Filter>test</Filter>
     </ClCompile>
     <ClCompile Include="doxygen.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="application.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="gpsa\gpsa.cpp">
+      <Filter>gpsa</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ui\gui.h">
       <Filter>ui</Filter>
-    </ClInclude>
-    <ClInclude Include="gpsa_application.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="astar\astar.h">
       <Filter>astar</Filter>
@@ -83,11 +80,14 @@
     <ClInclude Include="board\node.h">
       <Filter>board</Filter>
     </ClInclude>
-    <ClInclude Include="hashing\hashing.h">
-      <Filter>hashing</Filter>
-    </ClInclude>
     <ClInclude Include="test\profiler.h">
       <Filter>test</Filter>
+    </ClInclude>
+    <ClInclude Include="application.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="gpsa\gpsa.h">
+      <Filter>gpsa</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,6 +1,6 @@
 // /////////////////////////////////////////////////////////////////////////////
 /*!	 																	      \n
-*			          Hashing - Pathfinding laboratory	         			  \n
+*			           Gpsa - Pathfinding laboratory	         			  \n
 *                          by Jiri Klic, Dec 2014							  \n
 *																			  \n
 */ /////////////////////////////////////////////////////////////////////////////
@@ -8,8 +8,8 @@
 
 
 
-#ifndef HASHING_H
-#define HASHING_H
+#ifndef GPSA_H
+#define GPSA_H
 
 
 // INCLUDES ////////////////////////////////////////////////////////////////////
@@ -70,12 +70,12 @@ typedef  struct  Piece*  pointer;
 
 // CLASS ///////////////////////////////////////////////////////////////////////
 
-class Hashing
+class Gpsa
 {
 
 public:
-	Hashing(Gui* ui_);
-	~Hashing();
+	Gpsa(Gui* ui_);
+	~Gpsa();
 
 
 	void run();
@@ -125,4 +125,4 @@ private:
 
 };
 
-#endif // HASHING_H
+#endif // GPSA_H
