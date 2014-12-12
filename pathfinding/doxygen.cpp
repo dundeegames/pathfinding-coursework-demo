@@ -8,9 +8,10 @@
 *	who in his spare time taught me the basics of how to use Doxygen.		  \n
 *	 	  																      \n
 *   \section intro_sec Introduction
-*       This is the introduction. Just to make sure we work											  
-*	\section install_sec Installation
-*   \subsection step1 Step 1: Opening the box
-*		etc...																  \n
+*       Data structures, Algorithms, Path finding in games and Agile Development
+*	are all very broad subjects. Each of them can be described as a study field
+*	on its own and many books were already written in those particular areas.
+*	To cover such a vast knowledge during 13 weeks of study is rather a scratch on surface,
+*	but it is an intention of this coursework to present at least a fundamental learning outcome.											  															  \n
 *																			  \n
 */ /////////////////////////////////////////////////////////////////////////////

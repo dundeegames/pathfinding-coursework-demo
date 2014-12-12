@@ -84,10 +84,12 @@ void Gpsa::check_wset()
 {
 	funcCounter[0]++;								// count function calls
 
-	pointer head, tail;								// constant Piece*s to dummy Pieces
+	// constant Piece*s to dummy Pieces
+	pointer head, tail;								
 	
-	head = new Piece();								// dummy head Piece
-	tail = new Piece();								// dummy tail Piece	
+	head = new Piece();   // dummy head Piece
+	tail = new Piece();   // dummy tail Piece
+
 	head->left = NULL;
 	head->right = tail;
 	tail->left = head;
@@ -126,7 +128,10 @@ void Gpsa::insert(int v, int num, Piece* h)
 
 	//	insert immediately to the left of Piece_number num
 	pointer   temp, runner = h->right;
-	temp = (pointer) malloc ( sizeof ( Piece ) );	// works same as new Piece();
+
+
+	// works same as new Piece();
+	temp = (pointer) malloc ( sizeof ( Piece ) );
 
 
 	// Could guard against memory failure here, trap temp == NULL
